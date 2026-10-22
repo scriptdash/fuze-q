@@ -19,7 +19,7 @@ Everything under `q-extension/` is framework payload — the law and workflow th
 
 ## Documentation
 
-q's documentation is indexed below, a subsection per kind of doc (source: @lab43/q conventions/documentation.md, Taxonomy). All doc changes — the README and this briefing itself included — go through `/q:update-docs`.
+q's documentation is indexed below, a subsection per kind of doc (source: @lab43/q conventions/documentation.md, Taxonomy). When a change makes a doc wrong — the README and this briefing itself included — fix the doc in the same change, following the documentation policy (see: @lab43/q conventions/documentation.md).
 
 In path references, `@lab43/q` resolves here to `q-extension/`, q's own payload working tree (source: q-docs/conventions/documentation.md, Working on the payload).
 

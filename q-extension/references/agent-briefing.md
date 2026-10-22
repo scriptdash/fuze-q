@@ -9,9 +9,7 @@ The documentation policy decides what the briefing must carry (see: @lab43/q con
 ```markdown
 ## Documentation
 
-This project follows q, an agentic coding workflow. Its documentation is indexed below, a subsection per kind of doc (source: @lab43/q conventions/documentation.md, Taxonomy). Doc changes — the README and this briefing itself included — go through `/q:update-docs`.
-
-If the session's skill list has no `/q:` skills, this machine is missing the q plugin — ask the user to install the project's dependencies (`npm install`, or the project's package manager's equivalent), then run `/q:reconcile`.
+This project follows q, an agentic coding workflow. Its documentation is indexed below, a subsection per kind of doc (source: @lab43/q conventions/documentation.md, Taxonomy). When a change makes a doc wrong — the README and this briefing itself included — fix the doc in the same change, following the documentation policy (see: @lab43/q conventions/documentation.md).
 
 When another session is already working this repo, take a worktree rather than sharing the checkout (source: @lab43/q references/run-contract.md, The delivery branch).
 
