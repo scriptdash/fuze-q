@@ -22,7 +22,7 @@ Planned changes:
 
 1. [x] **Make the briefing skill-free.** The briefing template puts no skill's name in `CLAUDE.md`. They tell a session to read the indexed conventions before changing code or docs, and to keep docs accurate as it goes.
 2. [x] **Index only what a consuming repo needs.** The briefing indexes q's principles, writing, pull-request, and documentation conventions. Skills read the rest when they run.
-3. [ ] **Retune skill descriptions.** No description presents its skill as the standard way to work, such as `/q:implement` calling itself "the expected entry point".
+3. [x] **Retune skill descriptions.** No description presents its skill as the standard way to work, such as `/q:implement` calling itself "the expected entry point".
 4. [ ] **Remove `/q:update-docs`.** Sessions edit docs directly, following the documentation policy:
    - Move the rule for keeping the briefing's index in sync into the documentation policy.
    - Point `/q:review`, `/q:drive`, `/q:implement-plan`, `/q:install`, and the run contract at the policy instead of the skill.
@@ -160,7 +160,7 @@ From there:
 
 **Everyday work** — the workflow loop:
 
-- `/q:implement` — Take on any work — ground it in the code, then fix it in a single adversarially reviewed PR. Escalate to planning for larger work.
+- `/q:implement` — Take on a task — ground it in the code, then fix it in a single adversarially reviewed PR. Escalate to planning for larger work.
 - `/q:triage` — Choose what to work on next from a set of items (a Jira board, GitHub issues, a text doc, etc.) and hand each agreed pick to `/q:implement`.
 - `/q:review` — Review anything ad hoc — a diff, file, directory, feature, or plan doc — through the adversarial reviewer. You rule on the findings and decide what to change.
 - `/q:create-plan` — Collaboratively write a feature plan and save it to `q-docs/plans/`.
