@@ -10,6 +10,42 @@ Agents do their best work with good documentation and a structured workflow. q p
 - **A documentation format.** An agent's documentation needs to be well organized, maintained, and available to it at the right moment. q avoids sprawling, disorganized `CLAUDE.md` files by providing a structured and opinionated documentation format. Conventions, plans, specs, and guides live in topic-focused, cross-referenced markdown files under `q-docs/` in your repo, indexed so a session reads each one when its work calls for it.
 - **Workflow skills.** q provides a set of workflow skills that carry work from idea to pull request. They settle a plan with you before writing code, run the change to see it working, and have a subagent with fresh context try to break it before you see it. Work is grounded in the documentation, and the documentation is kept up to date as you work.
 
+## The Fuze fork: todo
+
+fuze-q is a fork of q for use at Fuze Health. Its goals:
+
+- **Lighter weight and less opinionated** than upstream q.
+- **Docs still ground the work.** A repo using fuze-q keeps its conventions, specs, guides, and plans under `q-docs/`, and every session reads them.
+- **Skills are easy to ignore.** Someone who hasn't adopted q can work in the repo without being steered into q's workflow.
+
+Planned changes:
+
+1. [x] **Make the briefing skill-free.** The briefing template puts no skill's name in `CLAUDE.md`. They tell a session to read the indexed conventions before changing code or docs, and to keep docs accurate as it goes.
+2. [ ] **Index only what a consuming repo needs.** The briefing indexes q's principles, writing, pull-request, and documentation conventions. Skills read the rest when they run.
+3. [ ] **Retune skill descriptions.** No description presents its skill as the standard way to work, such as `/q:implement` calling itself "the expected entry point".
+4. [ ] **Remove `/q:update-docs`.** Sessions edit docs directly, following the documentation policy:
+   - Move the rule for keeping the briefing's index in sync into the documentation policy.
+   - Point `/q:review`, `/q:drive`, `/q:implement-plan`, `/q:install`, and the run contract at the policy instead of the skill.
+   - Doc edits travel with the work in progress rather than shipping as their own PR.
+5. [ ] **Make the GitHub CLI optional:**
+   - Open PRs with `gh` when it is installed and authenticated.
+   - Without it, push the branch and hand the user a compare URL and the drafted PR body.
+   - `/q:install` and `/q:reconcile` stop requiring it.
+   - Stacked PRs, diff comments, and attached screenshots need `gh`, and are skipped without it.
+6. [ ] **Loosen the PR format:**
+   - Keep the two goals: easy to review, and proof the change works.
+   - Keep describing the change, never the session that produced it.
+   - When the repo has a PR template, fill in the template and add nothing else.
+   - Use q's section list only when the repo has no template.
+   - Make diff comments and the "— Claude 🤖" signature optional, or drop them.
+7. [ ] **Remove `/q:address-feedback` and `/q:parallelize`**, along with their mentions in this README, the workflow chart, and other skills.
+
+Staying as upstream q has them:
+
+- npm distribution
+- the session-start check
+- the other skills, `/q:triage` and `/q:upstream` included, and their review gates
+
 ## What else you get
 
 <!-- source: @lab43/q references/run-contract.md, Working alongside a peer -->
