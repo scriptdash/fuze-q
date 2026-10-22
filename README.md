@@ -21,7 +21,7 @@ fuze-q is a fork of q for use at Fuze Health. Its goals:
 Planned changes:
 
 1. [x] **Make the briefing skill-free.** The briefing template puts no skill's name in `CLAUDE.md`. They tell a session to read the indexed conventions before changing code or docs, and to keep docs accurate as it goes.
-2. [ ] **Index only what a consuming repo needs.** The briefing indexes q's principles, writing, pull-request, and documentation conventions. Skills read the rest when they run.
+2. [x] **Index only what a consuming repo needs.** The briefing indexes q's principles, writing, pull-request, and documentation conventions. Skills read the rest when they run.
 3. [ ] **Retune skill descriptions.** No description presents its skill as the standard way to work, such as `/q:implement` calling itself "the expected entry point".
 4. [ ] **Remove `/q:update-docs`.** Sessions edit docs directly, following the documentation policy:
    - Move the rule for keeping the briefing's index in sync into the documentation policy.
