@@ -34,7 +34,7 @@ description: Work feedback on an open pull request — the reviewer's comments, 
      ```
 
      Skip every thread `isResolved` reports closed — the reviewer ended those. An `isOutdated` thread is still live: it anchors to a line that later commits moved. Skip a thread whose last comment already answers the one before it. An earlier round settled that item, and the reviewer has not written back.
-5. Ignore every comment that raises nothing to settle. A callout explaining the change under review is the common case (see: @lab43/q conventions/pull-requests.md, Diff comments).
+5. Ignore every comment that raises nothing to settle. A diff comment explaining the change under review is the common case (see: `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, Comments on a PR).
 6. Gather the user's own feedback. The invocation may carry it. Ask the user what they want changed whenever the PR carries no feedback of its own. Always ask whether more is coming, because the user may still be reading the PR and add items as they go.
 7. Build the agenda from everything gathered — one item per inline thread, top-level comment, or review summary that carries feedback, plus one per point the user raised. Merge items that share a root cause or answer each other. Record where each item came from, because that decides how it gets answered. Post the agenda — each item's gist in one line, in the order you propose to take them. No positions yet, and no edits. Leave the agenda open when the user has more coming, and add each new item to it as it arrives. The agenda closes when the user says nothing more is coming. Ask them rather than reading a pause as the end.
 
@@ -101,8 +101,8 @@ The round is the product, so its diff runs from Step 1's recorded SHA: `git diff
 
 1. **The local gate**: run it over the session's uncommitted work (see: `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, The local gate).
 2. **Push**: `git push origin HEAD`.
-3. **Bring the PR body, title, and diff comments up to date** wherever the round changed what they claim, the findings that survived Step 5 included (see: @lab43/q conventions/pull-requests.md).
-4. **Reply**, when replying was agreed: post each item's resolution where the feedback was written. Skip an item the user raised in session. It has no thread to answer. Give the reviewer what they need to understand it — the answer, the evidence behind a push-back, or the reason a fix took the shape it did. Sign each reply (source: @lab43/q conventions/writing.md, Sign what you post). Write each reply to a file and pass it by path, so apostrophes in the prose can't break the command. Reply to an inline thread at its first comment's `databaseId`:
+3. **Bring the PR body, title, and diff comments up to date** wherever the round changed what they claim, the findings that survived Step 5 included (see: @lab43/q conventions/pull-requests.md; `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, Comments on a PR).
+4. **Reply**, when replying was agreed: post each item's resolution where the feedback was written. Skip an item the user raised in session. It has no thread to answer. Give the reviewer what they need to understand it — the answer, the evidence behind a push-back, or the reason a fix took the shape it did. Sign each reply (see: `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, Sign what a run posts). Write each reply to a file and pass it by path, so apostrophes in the prose can't break the command. Reply to an inline thread at its first comment's `databaseId`:
 
    ```bash
    gh api --method POST repos/<owner>/<repo>/pulls/<n>/comments/<comment-id>/replies -F body=@<reply-file>

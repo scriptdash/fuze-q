@@ -16,7 +16,7 @@ Hold the project against each of Step 3's scaffold items, noting what is absent 
 - Convention-like docs living elsewhere — a `docs/` scan for rule-carrying files, a briefing bloated with per-task rules
 - Content already in `q-docs/conventions/` that has drifted from the documentation policy
 - Whether an earlier run's scaffold sits uncommitted in the working tree
-- The GitHub CLI: `gh repo view`. It is optional: with it, q's skills open PRs themselves, and without it they hand the user a compare URL and the drafted body (see: @lab43/q conventions/pull-requests.md, Opening).
+- The GitHub CLI: `gh repo view`. It is optional: with it, q's skills open PRs themselves, and without it they hand the user a compare URL and the drafted body (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Opening a PR).
 
 ## Step 2: Settle delivery
 

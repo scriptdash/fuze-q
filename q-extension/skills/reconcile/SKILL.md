@@ -18,7 +18,7 @@ Otherwise enforce the declarations per `${CLAUDE_PLUGIN_ROOT}/references/enforce
 
 ## Step 2: Check the GitHub CLI
 
-Run `gh repo view`. The CLI is optional: with it, q's skills open PRs themselves, and without it they hand the user a compare URL and the drafted body (see: @lab43/q conventions/pull-requests.md, Opening). When it is missing or unauthenticated, report what it would add and how to get it: install via <https://cli.github.com>, authenticate with `gh auth login`.
+Run `gh repo view`. The CLI is optional: with it, q's skills open PRs themselves, and without it they hand the user a compare URL and the drafted body (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Opening a PR). When it is missing or unauthenticated, report what it would add and how to get it: install via <https://cli.github.com>, authenticate with `gh auth login`.
 
 ## Step 3: Take stock
 

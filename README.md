@@ -32,13 +32,19 @@ Planned changes:
    - Without it, push the branch and hand the user a compare URL and the drafted PR body.
    - `/q:install` and `/q:reconcile` stop requiring it.
    - Without `gh`, stacked PRs open as chained PRs from compare URLs, and diff comments and attached screenshots are skipped.
-6. [ ] **Loosen the PR format:**
+6. [x] **Loosen the PR format:**
    - Keep the two goals: easy to review, and proof the change works.
    - Keep describing the change, never the session that produced it.
    - When the repo has a PR template, fill in the template and add nothing else.
-   - Use q's section list only when the repo has no template.
-   - Make diff comments and the "— Claude 🤖" signature optional, or drop them.
+   - Prescribe no format when the repo has no template, and no title rule.
+   - Move diff comments and their signature into the run contract, so only q's skill runs post them. PR bodies carry no signature.
 7. [ ] **Remove `/q:address-feedback` and `/q:parallelize`**, along with their mentions in this README, the workflow chart, and other skills.
+8. [ ] **Publish.** Publish as @fuze/q. Change all references from @lab43/q.
+9. [ ] **Use any GitHub integration, not just `gh`:**
+   - Do each GitHub operation through whatever integration the session has, such as `gh` or a GitHub MCP server.
+   - Fall back to manual steps, like a compare URL, only when no integration can do it.
+   - Covers opening PRs, diff comments, reading issues and PRs, and forking. Keep the `gh` commands as worked examples.
+10. [ ] **Groom docs** as a final check that the refactored docs are consistent.
 
 Staying as upstream q has them:
 
@@ -51,8 +57,8 @@ Staying as upstream q has them:
 <!-- source: @lab43/q references/run-contract.md, Working alongside a peer -->
 <!-- source: @lab43/q skills/drive/SKILL.md -->
 <!-- source: @lab43/q skills/parallelize/SKILL.md -->
-<!-- source: @lab43/q conventions/pull-requests.md, Sections -->
-<!-- source: @lab43/q conventions/pull-requests.md, Diff comments -->
+<!-- source: @lab43/q conventions/pull-requests.md, Body -->
+<!-- source: @lab43/q references/run-contract.md, Comments on a PR -->
 <!-- source: @lab43/q skills/implement-plan/SKILL.md -->
 <!-- source: @lab43/q references/run-contract.md, Collaboration modes -->
 <!-- source: @lab43/q conventions/extensions.md, Identity -->
@@ -207,7 +213,7 @@ The full rules are in [q's extension format](q-extension/conventions/extensions.
 
 ## Settings
 
-<!-- source: @lab43/q conventions/pull-requests.md, Draft -->
+<!-- source: @lab43/q references/run-contract.md, Draft pull requests -->
 <!-- source: @lab43/q conventions/extensions.md, Description -->
 
 q's settings live under the `q` key of your root `package.json`. Everything else about how q behaves in your project is decided in your conventions docs.
@@ -224,7 +230,7 @@ q's settings live under the `q` key of your root `package.json`. Everything else
   </tr>
   <tr>
     <td nowrap><samp>q.draftPullRequests</samp></td>
-    <td>Set to <code>true</code> to open every PR as a draft, so its author reviews it before the team does.</td>
+    <td>Set to <code>true</code> for q's skill runs to open their PRs as drafts, so the author reviews each one before the team does.</td>
   </tr>
   <tr>
     <td nowrap><samp>q.description</samp></td>

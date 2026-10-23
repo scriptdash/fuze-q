@@ -14,7 +14,7 @@ description: Choose what to work on next from a set of items — a Jira board, G
 
 ## Step 1: Read the set
 
-The set comes from the invocation — a Jira board or filter, a GitHub repo's issues, a Notion doc, a file, a pasted list; given nothing, ask what to triage. Read it with whatever tool serves the source, fetching summaries rather than full item histories. A GitHub repo's issues are read through `gh`. Without it (see: @lab43/q conventions/pull-requests.md, Opening), report that source as unreadable and ask for another. Note any priority guidelines the invocation carries.
+The set comes from the invocation — a Jira board or filter, a GitHub repo's issues, a Notion doc, a file, a pasted list; given nothing, ask what to triage. Read it with whatever tool serves the source, fetching summaries rather than full item histories. A GitHub repo's issues are read through `gh`. Without it (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Opening a PR), report that source as unreadable and ask for another. Note any priority guidelines the invocation carries.
 
 Read the priority the user set, when the source records one — a hand-ordered position, a priority field, a label. A default listing order is not one: creation date and ID say nothing about priority. A fetch can drop fields silently. Confirm the call you use preserves the priority and carries descriptions, labels, dates, assignees. A GitHub milestone records its priority as a hand-ordered position. That order comes back only through GraphQL:
 
