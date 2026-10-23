@@ -27,11 +27,11 @@ Planned changes:
    - Move the rule for keeping the briefing's index in sync into the documentation policy.
    - Point `/q:review`, `/q:drive`, `/q:implement-plan`, `/q:install`, and the run contract at the policy instead of the skill.
    - Doc edits travel with the work in progress rather than shipping as their own PR.
-5. [ ] **Make the GitHub CLI optional:**
+5. [x] **Make the GitHub CLI optional:**
    - Open PRs with `gh` when it is installed and authenticated.
    - Without it, push the branch and hand the user a compare URL and the drafted PR body.
    - `/q:install` and `/q:reconcile` stop requiring it.
-   - Stacked PRs, diff comments, and attached screenshots need `gh`, and are skipped without it.
+   - Without `gh`, stacked PRs open as chained PRs from compare URLs, and diff comments and attached screenshots are skipped.
 6. [ ] **Loosen the PR format:**
    - Keep the two goals: easy to review, and proof the change works.
    - Keep describing the change, never the session that produced it.
@@ -70,12 +70,12 @@ Staying as upstream q has them:
 
 ## Getting started
 
-q requires [Claude Code](https://claude.com/claude-code) and is installed in your repo with npm. It also requires the [GitHub CLI](https://cli.github.com) (`gh`) to be installed and authenticated, because q opens pull requests and reads their reviews through it.
+q requires [Claude Code](https://claude.com/claude-code) and is installed in your repo with npm. The [GitHub CLI](https://cli.github.com) (`gh`) is optional. With it installed and authenticated, q opens pull requests itself. Without it, q pushes the branch and hands you a link that opens the pull request, with its description drafted for you to paste.
 
 <!-- source: @lab43/q skills/install/SKILL.md -->
 
 ```sh
-# Install and authenticate the GitHub CLI, if you haven't.
+# Optional: install and authenticate the GitHub CLI, so q opens PRs itself.
 # On other platforms, see https://cli.github.com.
 brew install gh
 gh auth login
