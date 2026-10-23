@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Take on unplanned work — an issue, a bug, a task at any fidelity. Ground it in the code, then route it on the user's go-ahead — fix it here in a single adversarially reviewed PR, escalate to /q:create-plan when it's plan-worthy, or show with evidence that nothing needs doing. The expected entry point for work without a plan; planned work runs under /q:implement-plan.
+description: Take on unplanned work — an issue, a bug, a task at any fidelity. Ground it in the code, then route it on the user's go-ahead — fix it here in a single adversarially reviewed PR, escalate to /q:create-plan when it's plan-worthy, or show with evidence that nothing needs doing. Not for planned work, which runs under /q:implement-plan.
 ---
 
 # Implement

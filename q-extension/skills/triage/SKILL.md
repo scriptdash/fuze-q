@@ -1,6 +1,6 @@
 ---
 name: triage
-description: Choose what to work on next from a set of items — a Jira board, GitHub issues, a Notion doc, a file or pasted list — and work through it one pick at a time. Priority guidelines steer the ranking when given ("newest first"). Each agreed pick runs as a /q:implement cycle in this session, claimed in the source (assignee, status) only with the user's agreement. For a single known item, invoke /q:implement directly.
+description: Choose what to work on next from a set of items — a Jira board, GitHub issues, a Notion doc, a file or pasted list — and work through it one pick at a time. Priority guidelines steer the ranking when given ("newest first"). Each agreed pick runs as a /q:implement cycle in this session, claimed in the source (assignee, status) only with the user's agreement. Not for a single known item.
 ---
 
 # Triage
