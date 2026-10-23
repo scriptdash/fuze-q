@@ -49,7 +49,7 @@ The invocation is the agreement — scaffold autonomously; on a fully set-up, un
    This project's documentation rulings and deviations (see: @lab43/q conventions/conventions.md, Three tiers of conventions).
    ```
 
-   No other conventions doc is scaffolded — `/q:update-docs` creates each topical doc when its first entry is recorded.
+   No other conventions doc is scaffolded — each topical doc is created when its first entry is recorded.
 2. **The q dependency** — q arrives as one npm package, its conventions and its plugin together, and the developer installs it; Step 2 stopped any run where it is undeclared. Its declaration lives in `devDependencies` in the `package.json` at the repo root — the only place anything looks for it, whatever else the repo's layout holds (source: @lab43/q conventions/extensions.md, Pinning). Leave the recorded declaration alone.
 3. **Agent briefing** — ensure the project's briefing carries the section the briefing template defines, adding what is missing and correcting drift, per that file's rules (see: `${CLAUDE_PLUGIN_ROOT}/references/agent-briefing.md`).
 4. **Plugin declaration** — the project publishes its own marketplace, sourcing the q it already has in `node_modules` and the plugin of each installed extension that ships one. Two files hold it, created if missing.

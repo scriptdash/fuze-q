@@ -34,7 +34,7 @@ Present the qualifiers grouped by destination — for each, the proposed change 
 
 The Step 2 rulings are the agreement — work each destination autonomously.
 
-First the Remove rulings: hand the deletions to `/q:update-docs` for full delivery under the run's review mode. Its own branch, validation, and PR carry them to this project, separate from every destination PR.
+First the Remove rulings. They ship to this project as a PR of their own, separate from every destination PR, under the run's review mode. Branch for them (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The delivery branch). Delete each override per the documentation policy (see: @lab43/q conventions/documentation.md), committing in ship mode, then validate the deletions (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Validation) with the **correctness** and **conventions** lenses. In local mode, run the local gate over them (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The local gate).
 
 Then, for each destination with shipped candidates:
 
@@ -48,6 +48,8 @@ Then, for each destination with shipped candidates:
 ## Step 4: Open the PRs
 
 Push each destination branch and open its PR with `gh pr create` against the default branch — the Step 2 agreement covers these PRs. Author the body and diff comments per the PR-authoring rules (see: @lab43/q conventions/pull-requests.md); the destination's own PR conventions and template win where they speak (source: @lab43/q conventions/pull-requests.md). Carry the provoking context from this session in the body — the PR is the paper trail, so provenance belongs there, never in the conventions prose (source: @lab43/q conventions/conventions.md, Conventions docs). If pushing to a repo is denied, fall back to a fork and say so.
+
+Push the project branch carrying any Remove rulings and open its PR against this project's default branch, authored per the PR-authoring rules and this project's own conventions (see: @lab43/q conventions/pull-requests.md).
 
 ## Step 5: Report
 

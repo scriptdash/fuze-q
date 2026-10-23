@@ -115,7 +115,7 @@ Every run turns up documentation the project doesn't have yet. Record it as it s
 - a rule nobody wrote down
 - a correction the user made whose reason binds future work
 
-Route every recording through `/q:update-docs`. It classifies the lesson and holds it to the documentation policy's gates.
+Record each one directly, in the doc the documentation policy assigns it (see: @lab43/q conventions/documentation.md, Taxonomy). A rule is held to the principles (see: @lab43/q conventions/principles.md) and the conventions rules (see: @lab43/q conventions/conventions.md) before it lands.
 
 Record a correction in the change that prompted it. The diff at each review point carries its own doc updates, so a user approving the work sees everything the run proposes. A correction that arrives during review joins that iteration. Never defer one to the closing report, and never leave the user trusting that a doc update will follow.
 
