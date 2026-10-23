@@ -43,7 +43,7 @@ Settle the branch (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The de
 git fetch origin && git checkout -b <plan-name> origin/<default-branch>
 ```
 
-**Stacked PRs** — one branch per PR group from the plan's Phases section, chained bottom-up. Without `gh` (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Opening a PR), chain plain branches: create the first layer with `git fetch origin && git checkout -b <plan-name>/01-<group-slug> origin/<default-branch>`, in place of the commands below. With `gh`, use the `gh stack` extension (install with `gh extension install github/gh-stack` if `gh extension list` lacks it):
+**Stacked PRs** — one branch per PR group from the plan's Phases section, chained bottom-up. Without `gh`, chain plain branches, even when another GitHub integration opens the PRs: `gh stack` has no equivalent elsewhere (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, GitHub integrations). Create the first layer with `git fetch origin && git checkout -b <plan-name>/01-<group-slug> origin/<default-branch>`, in place of the commands below. With `gh`, use the `gh stack` extension (install with `gh extension install github/gh-stack` if `gh extension list` lacks it):
 
 ```bash
 git fetch origin
@@ -91,7 +91,7 @@ When a group's last phase lands, finish that PR before starting the next group:
 
    Stacked: `gh stack submit --auto` pushes the layers built so far and creates the new PR as a draft. GitHub links the stack, runs CI on every layer as if it targeted the default branch, and cascade-merges bottom-up from whichever PR the user merges. `--auto` is required, because the interactive editor the command otherwise opens cannot be driven. It names the PR from the branch and writes no body. Write the title and body with `gh pr edit`, post the diff comments, then take it out of draft with `gh pr ready`, unless the project's PRs open as drafts (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Draft pull requests). Never hand the user a PR marked ready before its body and diff comments are written.
 
-   Stacked without `gh`: push every layer built so far (`git push -u origin <branch>` for each), then hand over the new layer's compare URL with the layer below as its base, the default branch for the first layer, plus its drafted body (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Opening a PR). The layers are chained PRs, not a linked stack: GitHub runs each layer's CI against the layer below and merges none of them as a cascade. With every hand-off, tell the user how a chain merges:
+   Stacked without `gh`: push every layer built so far (`git push -u origin <branch>` for each), then open the new layer's PR with the layer below as its base, the default branch for the first layer (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Opening a PR). Without an integration that can open it, that means handing over its compare URL and drafted body. The layers are chained PRs, not a linked stack: GitHub runs each layer's CI against the layer below and merges none of them as a cascade. With every hand-off, tell the user how a chain merges:
 
    - The user merges bottom-up.
    - When a layer merges and its branch is deleted, GitHub retargets the next layer's PR to the default branch.

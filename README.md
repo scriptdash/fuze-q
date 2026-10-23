@@ -40,7 +40,7 @@ Planned changes:
    - Move diff comments and their signature into the run contract, so only q's skill runs post them. PR bodies carry no signature.
 7. [x] **Make `/q:address-feedback` work without the GitHub CLI.** Without `gh`, the user pastes the reviewer's feedback, and the run hands back the updated PR title, body, and drafted replies to paste.
 8. [x] **Publish.** Publish as @fuze/q. Change all references from @lab43/q.
-9. [ ] **Use any GitHub integration, not just `gh`:**
+9. [x] **Use any GitHub integration, not just `gh`:**
    - Do each GitHub operation through whatever integration the session has, such as `gh` or a GitHub MCP server.
    - Fall back to manual steps, like a compare URL, only when no integration can do it.
    - Covers opening PRs, diff comments, reading issues and PRs, and forking. Keep the `gh` commands as worked examples.
@@ -76,12 +76,13 @@ Staying as upstream q has them:
 
 ## Getting started
 
-q requires [Claude Code](https://claude.com/claude-code) and is installed in your repo with npm, from Alto's Artifactory registry. The [GitHub CLI](https://cli.github.com) (`gh`) is optional. With it installed and authenticated, q opens pull requests itself. Without it, q pushes the branch and hands you a link that opens the pull request, with its description drafted for you to paste.
+q requires [Claude Code](https://claude.com/claude-code) and is installed in your repo with npm, from Alto's Artifactory registry. A GitHub integration is optional: the [GitHub CLI](https://cli.github.com) (`gh`), installed and authenticated, or a GitHub MCP server. With one, q opens pull requests itself. Without one, q pushes the branch and hands you a link that opens the pull request, with its description drafted for you to paste.
 
 <!-- source: @fuze/q skills/install/SKILL.md -->
 
 ```sh
 # Optional: install and authenticate the GitHub CLI, so q opens PRs itself.
+# A GitHub MCP server serves too.
 # On other platforms, see https://cli.github.com.
 brew install gh
 gh auth login
@@ -176,7 +177,7 @@ From there:
 - `/q:review` — Review anything ad hoc — a diff, file, directory, feature, or plan doc — through the adversarial reviewer. You rule on the findings and decide what to change.
 - `/q:create-plan` — Collaboratively write a feature plan and save it to `q-docs/plans/`.
 - `/q:implement-plan` — Execute a plan end-to-end, in a single PR or stacked PRs.
-- `/q:address-feedback` — Review feedback on a PR. Implement the agreed fixes then push them to the PR, with replies posted when you want them. Without `gh`, you paste the feedback in and post the replies yourself.
+- `/q:address-feedback` — Review feedback on a PR. Implement the agreed fixes then push them to the PR, with replies posted when you want them. Without a GitHub integration, you paste the feedback in and post the replies yourself.
 
 **Docs:**
 
