@@ -43,7 +43,7 @@ Settle the branch (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The de
 git fetch origin && git checkout -b <plan-name> origin/<default-branch>
 ```
 
-**Stacked PRs** — one branch per PR group from the plan's Phases section, chained bottom-up. Requires the `gh stack` extension (install with `gh extension install github/gh-stack` if `gh extension list` lacks it):
+**Stacked PRs** — one branch per PR group from the plan's Phases section, chained bottom-up. Without `gh` (see: @lab43/q conventions/pull-requests.md, Opening), chain plain branches: create the first layer with `git fetch origin && git checkout -b <plan-name>/01-<group-slug> origin/<default-branch>`, in place of the commands below. With `gh`, use the `gh stack` extension (install with `gh extension install github/gh-stack` if `gh extension list` lacks it):
 
 ```bash
 git fetch origin
@@ -65,7 +65,7 @@ Derive phases from the plan's Phases section — a boundary problem visible up f
 
 In local mode, commits wait for the user's review at each PR boundary (Step 5): phases accumulate uncommitted, and a phase's adversarial review takes the uncommitted diff plus the phase's file list.
 
-Then work phase by phase. In a stacked run, a phase that starts a new PR group first opens the group's branch — `gh stack add <plan-name>/<NN>-<group-slug>`, the first group using Step 3's branch — so the group's phases commit to their own branch. A new group records its group-start SHA as Step 3 describes.
+Then work phase by phase. In a stacked run, a phase that starts a new PR group first opens the group's branch — `gh stack add <plan-name>/<NN>-<group-slug>`, or without `gh`, `git checkout -b <plan-name>/<NN>-<group-slug>` from the layer below's tip; the first group uses Step 3's branch — so the group's phases commit to their own branch. A new group records its group-start SHA as Step 3 describes.
 
 In ship mode, record the phase-start SHA (`git rev-parse HEAD`) at the start of each phase. It scopes the phase's review diff.
 
@@ -87,17 +87,23 @@ When a group's last phase lands, finish that PR before starting the next group:
 4. **Mark the plan completed** — last or only PR: set `status: completed` in the plan doc's frontmatter and commit it (in a stacked run the lower PRs still show `pending`; the flip lands when the whole stack merges). In local mode this flip rides the go-ahead just given. That is a deliberate exception to the gate: the go-ahead already covers this bookkeeping. Don't ask again.
 5. **Open the PR**, so the user can start reviewing while later groups build. Author every PR's title, body, and diff comments per the PR-authoring rules (see: @lab43/q conventions/pull-requests.md).
 
-   Single PR: `git push -u origin <plan-name>`, then `gh pr create`, then post the diff comments.
+   Single PR: `git push -u origin <plan-name>`, then open it (see: @lab43/q conventions/pull-requests.md, Opening).
 
    Stacked: `gh stack submit --auto` pushes the layers built so far and creates the new PR as a draft. GitHub links the stack, runs CI on every layer as if it targeted the default branch, and cascade-merges bottom-up from whichever PR the user merges. `--auto` is required, because the interactive editor the command otherwise opens cannot be driven. It names the PR from the branch and writes no body. Write the title and body with `gh pr edit`, post the diff comments, then take it out of draft with `gh pr ready`, unless the project's PRs open as drafts (see: @lab43/q conventions/pull-requests.md, Draft). Never hand the user a PR marked ready before its body and diff comments are written.
 
-   Either way, `gh pr create` and `gh pr edit` can't post diff comments. Post each diff comment on its line of the PR's head commit, writing the comment to a file and passing it by path so apostrophes in the prose can't break the command. Sign each comment (source: @lab43/q conventions/writing.md, Sign what you post):
+   Stacked without `gh`: push every layer built so far (`git push -u origin <branch>` for each), then hand over the new layer's compare URL with the layer below as its base, the default branch for the first layer, plus its drafted body (see: @lab43/q conventions/pull-requests.md, Opening). The layers are chained PRs, not a linked stack: GitHub runs each layer's CI against the layer below and merges none of them as a cascade. With every hand-off, tell the user how a chain merges:
+
+   - The user merges bottom-up.
+   - When a layer merges and its branch is deleted, GitHub retargets the next layer's PR to the default branch.
+   - After a squash merge, the next layer still carries the merged commits. Rebase it onto the default branch (`git fetch origin && git rebase --onto origin/<default-branch> <merged-layer-branch> <next-layer-branch>`) and force-push it before it merges.
+
+   With `gh`, post the diff comments once the PR is open: `gh pr create` and `gh pr edit` can't post them. Without it, skip them (see: @lab43/q conventions/pull-requests.md, Opening). Post each diff comment on its line of the PR's head commit, writing the comment to a file and passing it by path so apostrophes in the prose can't break the command. Sign each comment (source: @lab43/q conventions/writing.md, Sign what you post):
 
    ```bash
    gh api --method POST repos/<owner>/<repo>/pulls/<n>/comments -F body=@<comment-file> -f commit_id=<head-sha> -f path=<path> -F line=<line>
    ```
 
-6. **Hand the PR over**: give the user its URL and what it delivers. In a stacked run this hand-off is not the closing report, however much it reads like one. Return to Step 4 and open the next group's branch in the same turn.
+6. **Hand the PR over**: give the user its URL, or the compare URL that opens it, and what it delivers. In a stacked run this hand-off is not the closing report, however much it reads like one. Return to Step 4 and open the next group's branch in the same turn.
 
 ## Step 6: Report
 

@@ -2,6 +2,17 @@
 
 Rules for authoring a pull request. Hold its prose to the writing rules (see: @lab43/q conventions/writing.md). Sign the body and every comment or reply on it: "— Claude 🤖", except a body Claude Code has already ended with its own attribution line (source: @lab43/q conventions/writing.md, Sign what you post). A project's own PR conventions win over this doc (source: @lab43/q conventions/conventions.md, Three tiers of conventions), and so does a PR template in the repo.
 
+## Opening
+
+Open the PR with `gh pr create` when `gh repo view` succeeds: the GitHub CLI is installed, authenticated, and signed in to the host `origin` lives on. Otherwise, push the branch and hand the user what they need to open the PR themselves:
+
+- The compare URL, which opens GitHub's new-PR form: `https://<host>/<owner>/<repo>/compare/<base>...<branch>?expand=1`, with the host, owner, and repo read from `origin`. When `origin` is not on GitHub, name the branch instead.
+- The drafted title and body, in a fenced block so they paste as written.
+- The local path of each screenshot and recording, for the user to drag into the body (see: Screenshots and recordings).
+- In a project whose PRs open as drafts, that they should open it as a draft (see: Draft).
+
+Diff comments need `gh`, so they are skipped without it. Callouts still carry every one of them (see: Diff comments). Wherever a run reports a PR's URL, the compare URL stands in for a PR the user opens.
+
 ## Draft
 
 Open the PR as a draft when the project's root `package.json` declares it:
@@ -58,8 +69,8 @@ Show a change a person sees on screen in the Testing section:
 
 Show only what the change touched. A change with nothing on screen to see carries none.
 
-Attach each file with `--attach` on `gh pr create` or `gh pr edit`. Reference the file's local path where it belongs in the body, and `gh` replaces the path with the uploaded file's URL. The flag needs `gh` 2.99 or later. On an older `gh`, stop and ask the user to upgrade.
+Attach each file with `--attach` on `gh pr create` or `gh pr edit`. Reference the file's local path where it belongs in the body, and `gh` replaces the path with the uploaded file's URL. The flag needs `gh` 2.99 or later. On an older `gh`, or without `gh`, the user attaches them: name each file's local path in the hand-off (see: Opening).
 
 ## Diff comments
 
-Post a callout about a specific change also as a comment on its line of the diff, so the reviewer meets it in place. A callout not tied to a specific change needs no comment. Give the comment only what a reader needs to understand why that change was made — the anchor already says where and what, so no labels and no framing. The signature still closes it, being neither label nor framing (source: @lab43/q conventions/writing.md, Sign what you post).
+Post a callout about a specific change also as a comment on its line of the diff, so the reviewer meets it in place. This needs `gh` (see: Opening). A callout not tied to a specific change needs no comment. Give the comment only what a reader needs to understand why that change was made — the anchor already says where and what, so no labels and no framing. The signature still closes it, being neither label nor framing (source: @lab43/q conventions/writing.md, Sign what you post).

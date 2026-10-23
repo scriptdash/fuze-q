@@ -16,7 +16,7 @@ Hold the project against each of Step 3's scaffold items, noting what is absent 
 - Convention-like docs living elsewhere — a `docs/` scan for rule-carrying files, a briefing bloated with per-task rules
 - Content already in `q-docs/conventions/` that has drifted from the documentation policy
 - Whether an earlier run's scaffold sits uncommitted in the working tree
-- The GitHub CLI: `gh auth status`, and that the repo's `origin` is GitHub-hosted (`gh repo view` succeeds). q's workflow skills require both. If either fails, tell the user the fix (install via <https://cli.github.com> and authenticate with `gh auth login`; `gh repo view` failing with an authenticated CLI means `origin` is not GitHub-hosted) and continue — the scaffold still lands.
+- The GitHub CLI: `gh repo view`. It is optional: with it, q's skills open PRs themselves, and without it they hand the user a compare URL and the drafted body (see: @lab43/q conventions/pull-requests.md, Opening).
 
 ## Step 2: Settle delivery
 
@@ -24,7 +24,6 @@ Skip this step in any of these cases:
 
 - A run where Step 1 found nothing missing or drifted, and no scaffold sitting uncommitted from an earlier run — there is nothing to change or deliver. An unpopulated `node_modules/` is machine state rather than drift: a fresh clone nobody has installed on. Enforce the declarations per `${CLAUDE_PLUGIN_ROOT}/references/enforce-declarations.md`, which populates it, then stop with the closing report (Step 5).
 - Step 1 found no `@lab43/q` in `devDependencies` in the repo root's `package.json` — q's bytes have not arrived, and nothing scaffolds without them. Report the bootstrap for the developer to run — `npm install --save-dev --save-exact @lab43/q`, or their package manager's equivalent — and stop with the closing report (Step 5): this skill runs no package manager against a named package.
-- Step 1's GitHub CLI check failed — there is no delivery to settle.
 - Another skill's run invoked this one — the changes join that run's change.
 
 Otherwise ask which review mode — local or ship — the run delivers under (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Review modes). Then pick the delivery branch (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The delivery branch). Commit the q declaration the bootstrap left uncommitted in the root `package.json` and the lockfile with the scaffold, without asking. It is the input the bootstrap above prescribes, and the scaffold is broken without it (exception: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The delivery branch).
@@ -116,10 +115,7 @@ The invocation is the agreement — scaffold autonomously; on a fully set-up, un
 
 ## Step 4: Deliver
 
-Invoked from another skill's run, stop here — the changes are that run's to validate and deliver. When the run changed nothing tracked and no earlier run's scaffold awaits delivery: switch back to the prior branch, delete any branch this run created, and report that and stop. When Step 1's GitHub CLI check failed, stop here with the closing report (Step 5), adding:
-
-- That the changes stay uncommitted — restate the `gh` fix.
-- That a re-run delivers them once `gh` is in place.
+Invoked from another skill's run, stop here — the changes are that run's to validate and deliver. When the run changed nothing tracked and no earlier run's scaffold awaits delivery: switch back to the prior branch, delete any branch this run created, and report that and stop.
 
 Otherwise, in ship mode, commit. No adversarial review closes this run: the scaffold is deliberately deterministic — much of it is verbatim templates a reviewer would only second-guess — and the user reviews the delivered diff. Then:
 
@@ -132,6 +128,7 @@ Close the session by reporting:
 
 - What was created.
 - What already existed and was left untouched.
+- The GitHub CLI result. When it is missing or unauthenticated, say what it would add and how to get it: install via <https://cli.github.com>, authenticate with `gh auth login`.
 - Each shipped plugin left without a marketplace entry, and why.
 - Convention-like content Step 1 found outside `q-docs/conventions/` — migration candidates this run leaves alone. Moving a project's existing docs is its own delivery: suggest `/q:create-plan` for a docs tree, or `/q:implement` for a handful of rules.
 - Content already in `q-docs/conventions/` that has drifted from the documentation policy — grooming's territory: suggest `/q:groom-docs`.

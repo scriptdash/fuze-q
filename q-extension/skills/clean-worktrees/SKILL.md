@@ -28,7 +28,7 @@ Then establish what each of the rest holds:
 - whether its tree is clean — `git -C <path> status --porcelain`
 - whether every commit it carries has reached a remote — `git -C <path> log --oneline HEAD --not --remotes` prints the ones that have not
 
-Then establish whether its work has landed. Run `gh pr list --head <branch> --state all` for each branch's pull requests. Never use `git branch --merged` for this. A squash-merged branch is not an ancestor of the default branch, so that test reports long-merged work as unmerged. A detached worktree has no branch, so it has no pull requests to read.
+Then establish whether its work has landed. Run `gh pr list --head <branch> --state all` for each branch's pull requests. Never use `git branch --merged` for this. A squash-merged branch is not an ancestor of the default branch, so that test reports long-merged work as unmerged. A detached worktree has no branch, so it has no pull requests to read. Without `gh` (see: @lab43/q conventions/pull-requests.md, Opening), a branch's pull requests are unknown.
 
 A worktree is removable when it holds nothing the remote does not already have:
 
@@ -44,7 +44,7 @@ Removing one costs only the checkout. It deletes no ref, and by the test above e
 Settle the list with the user, in conversational mode (see: `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, Collaboration modes). How a removable worktree reaches the user depends on what its pull requests say:
 
 - Merged or closed — the work is done with. Name it in the go-ahead below, for the user to veto rather than asking them (see: `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, Decide at the right altitude).
-- Open, or no pull request at all — nothing says the work is finished. Put it in a batch of choices (see: `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, Batch questions), and say what its pull requests showed. The user may be coming back to the checkout.
+- Open, no pull request at all, or unknown — nothing says the work is finished. Put it in a batch of choices (see: `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, Batch questions), and say what its pull requests showed. The user may be coming back to the checkout.
 
 A sweep that turns up none of the second kind asks no questions at all.
 
