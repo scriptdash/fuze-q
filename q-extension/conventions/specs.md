@@ -1,6 +1,6 @@
 # Specs
 
-Rules for how a project's specs are written and how the code is held to them. A spec states what the product commits to. Whether a rule is a spec's or a convention's is the taxonomy's call (see: @lab43/q conventions/documentation.md, Taxonomy).
+Rules for how a project's specs are written and how the code is held to them. A spec states what the product commits to. Whether a rule is a spec's or a convention's is the taxonomy's call (see: @fuze/q conventions/documentation.md, Taxonomy).
 
 ## Format
 
@@ -18,13 +18,13 @@ Mark the code that enforces a spec: the validation that rejects the bad input, a
 
 Rejected: a marker on every site a spec binds. "Bound by" has no edge a reviewer could hold, so the boundary would be litigated on every diff.
 
-The marker sits once, at the head of the unit that enforces the spec, in that file's own comment syntax (see: @lab43/q conventions/documentation.md, Markers). It names the spec. It names the section too when the unit enforces that section alone. A file enforcing one spec carries the marker at its top. A blank line follows, so the marker reads as the file's and not the first statement's. A function or a test block that enforces a different spec from the rest of its file carries that spec's marker at its head. A file whose units enforce several sections of one spec carries one marker at its top naming the spec, not one per unit. Never mark individual checks. Rationale: a marker on every check repeats one fact down the block and drowns the code.
+The marker sits once, at the head of the unit that enforces the spec, in that file's own comment syntax (see: @fuze/q conventions/documentation.md, Markers). It names the spec. It names the section too when the unit enforces that section alone. A file enforcing one spec carries the marker at its top. A blank line follows, so the marker reads as the file's and not the first statement's. A function or a test block that enforces a different spec from the rest of its file carries that spec's marker at its head. A file whose units enforce several sections of one spec carries one marker at its top naming the spec, not one per unit. Never mark individual checks. Rationale: a marker on every check repeats one fact down the block and drowns the code.
 
 The marker makes discovery a grep in both directions. To find the specs a change is bound by, grep the changed files and their tests for markers. To find the code a spec amendment must visit, grep the repo for markers naming the amended spec. Skip a marker naming another section. Read each remaining unit for the amended statement. Every unit enforcing it moves with the amendment. That grep is the floor of the search, not the whole of it. Enforcing code that missed its marker, and code that relied on the old commitment, are found only by reading the territory. Mark the enforcing code the reading finds.
 
 Rejected: a spec naming the files or tests that enforce it. That enumeration rots when code moves. The marker carries the same fact in the one place that moves with the code.
 
-A statement stays in the spec after a test holds it. That is a carve-out from the last-rung rule, which deletes prose once a stronger rung holds it (see: @lab43/q conventions/conventions.md, Documentation is the last rung). The spec records the intent behind the test, so the test cannot drift from the commitment without the drift being visible.
+A statement stays in the spec after a test holds it. That is a carve-out from the last-rung rule, which deletes prose once a stronger rung holds it (see: @fuze/q conventions/conventions.md, Documentation is the last rung). The spec records the intent behind the test, so the test cannot drift from the commitment without the drift being visible.
 
 ## Disagreement
 

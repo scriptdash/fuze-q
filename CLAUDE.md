@@ -4,9 +4,9 @@ q is an agentic coding workflow for Claude Code. This file briefs sessions worki
 
 ## Two tiers
 
-(source: @lab43/q conventions/extensions.md, Which rules ship)
+(source: @fuze/q conventions/extensions.md, Which rules ship)
 
-Everything under `q-extension/` is framework payload — the law and workflow that reach every consuming project, and that q follows here too, as a consuming project of its own workflow. The payload is *addressed* solely to consumers: it never mentions this repo. `q-docs/conventions/` is q's own project tier — rules for developing q, including this repo's `documentation.md` mirror. Before adding a rule anywhere, decide which home it belongs in (see: @lab43/q conventions/extensions.md, Which rules ship).
+Everything under `q-extension/` is framework payload — the law and workflow that reach every consuming project, and that q follows here too, as a consuming project of its own workflow. The payload is *addressed* solely to consumers: it never mentions this repo. `q-docs/conventions/` is q's own project tier — rules for developing q, including this repo's `documentation.md` mirror. Before adding a rule anywhere, decide which home it belongs in (see: @fuze/q conventions/extensions.md, Which rules ship).
 
 ## Developing
 
@@ -15,31 +15,31 @@ Everything under `q-extension/` is framework payload — the law and workflow th
 - `npm run check` runs every check this repo has, `npm test` among them. `package.json` names them; this line deliberately doesn't, because a list here goes stale the next time one is added. CI runs it on every pull request and on pushes to `main` (source: .github/workflows/checks.yml).
 - `npm install` installs the pre-commit hook that runs `npm run check`. A tree that has not been installed commits without checking anything.
 - PRs never touch a `version`: releasing is the maintainer's act, separate from merging (source: q-docs/guides/releasing.md).
-- When another session is already working this checkout, take a worktree rather than sharing it. Run `npm install` in it (source: @lab43/q references/run-contract.md, The delivery branch). `.claude/settings.json` is tracked, so the plugin loads there.
+- When another session is already working this checkout, take a worktree rather than sharing it. Run `npm install` in it (source: @fuze/q references/run-contract.md, The delivery branch). `.claude/settings.json` is tracked, so the plugin loads there.
 
 ## Documentation
 
-q's documentation is indexed below, a subsection per kind of doc (source: @lab43/q conventions/documentation.md, Taxonomy). When a change makes a doc wrong — the README and this briefing itself included — fix the doc in the same change, following the documentation policy (see: @lab43/q conventions/documentation.md).
+q's documentation is indexed below, a subsection per kind of doc (source: @fuze/q conventions/documentation.md, Taxonomy). When a change makes a doc wrong — the README and this briefing itself included — fix the doc in the same change, following the documentation policy (see: @fuze/q conventions/documentation.md).
 
-In path references, `@lab43/q` resolves here to `q-extension/`, q's own payload working tree (source: q-docs/conventions/documentation.md, Working on the payload).
+In path references, `@fuze/q` resolves here to `q-extension/`, q's own payload working tree (source: q-docs/conventions/documentation.md, Working on the payload).
 
 ### Conventions
 
-Binding decisions about how q's code and docs get written, recorded as they are made (source: @lab43/q conventions/documentation.md, Taxonomy).
+Binding decisions about how q's code and docs get written, recorded as they are made (source: @fuze/q conventions/documentation.md, Taxonomy).
 
 Check both tiers before writing code, before design decisions and reviews, and before changing docs (see: Two tiers).
 
-`@lab43/q` — The rules of the q workflow, governing how a project's work gets planned, decided, documented, and shipped.
+`@fuze/q` — The rules of the q workflow, governing how a project's work gets planned, decided, documented, and shipped.
 
-- `@lab43/q conventions/documentation.md` — what belongs in a project's documentation, where it lives, and how it stays accurate
-- `@lab43/q conventions/conventions.md` — how a project's conventions are tiered, written, and enforced
-- `@lab43/q conventions/extensions.md` — the extension format: rules for authoring and publishing a q extension
-- `@lab43/q conventions/plans.md` — how a project's plans are written, sequenced, and carried to completion
-- `@lab43/q conventions/specs.md` — how a project's specs are written and how the code is held to them
-- `@lab43/q conventions/issue-tracking.md` — rules for working a project's issue tracker from any session
-- `@lab43/q conventions/pull-requests.md` — rules for authoring a pull request
-- `@lab43/q conventions/writing.md` — rules for writing prose: docs, plans, PR bodies, anything a human or agent will read
-- `@lab43/q conventions/principles.md` — cross-cutting rules for design decisions, plans, and reviews
+- `@fuze/q conventions/documentation.md` — what belongs in a project's documentation, where it lives, and how it stays accurate
+- `@fuze/q conventions/conventions.md` — how a project's conventions are tiered, written, and enforced
+- `@fuze/q conventions/extensions.md` — the extension format: rules for authoring and publishing a q extension
+- `@fuze/q conventions/plans.md` — how a project's plans are written, sequenced, and carried to completion
+- `@fuze/q conventions/specs.md` — how a project's specs are written and how the code is held to them
+- `@fuze/q conventions/issue-tracking.md` — rules for working a project's issue tracker from any session
+- `@fuze/q conventions/pull-requests.md` — rules for authoring a pull request
+- `@fuze/q conventions/writing.md` — rules for writing prose: docs, plans, PR bodies, anything a human or agent will read
+- `@fuze/q conventions/principles.md` — cross-cutting rules for design decisions, plans, and reviews
 
 This project's own:
 
@@ -49,13 +49,13 @@ This project's own:
 
 ### Specs
 
-What q commits to, stated as behavior the code must honor (source: @lab43/q conventions/documentation.md, Taxonomy).
+What q commits to, stated as behavior the code must honor (source: @fuze/q conventions/documentation.md, Taxonomy).
 
 - none yet
 
 ### Guides
 
-How to use and operate q, rather than how to write its code (source: @lab43/q conventions/documentation.md, Taxonomy).
+How to use and operate q, rather than how to write its code (source: @fuze/q conventions/documentation.md, Taxonomy).
 
 - `q-docs/guides/driving-manual.md` — how to bring q up in a session and exercise it
 - `q-docs/guides/releasing.md` — how q is versioned and released

@@ -8,8 +8,8 @@ Exercise a change to the hooks, to `/q:install`, or to the marketplace it scaffo
 
 1. From the checkout, run `npm pack --pack-destination <dir>`.
 2. Give the fixture directory its own `package.json`.
-3. Install the tarball there: `npm install --save-dev --ignore-scripts ./lab43-q-<version>.tgz`. q lands at `node_modules/@lab43/q`. The manifest records `file:lab43-q-<version>.tgz`, which nothing minds: the hook reads versions from the lockfile and `node_modules`, and the tarball install writes q's real version to both.
-4. Start a session there: `claude --plugin-dir ./node_modules/@lab43/q/q-extension`. That loads q for the session and registers nothing, which is how a consumer's first install reaches it.
+3. Install the tarball there: `npm install --save-dev --ignore-scripts ./fuze-q-<version>.tgz`. q lands at `node_modules/@fuze/q`. The manifest records `file:fuze-q-<version>.tgz`, which nothing minds: the hook reads versions from the lockfile and `node_modules`, and the tarball install writes q's real version to both.
+4. Start a session there: `claude --plugin-dir ./node_modules/@fuze/q/q-extension`. That loads q for the session and registers nothing, which is how a consumer's first install reaches it.
 5. Run `/q:install` in that session to finish the setup. Until it does, the fixture has no `.claude/q-state.json`. The session-start hook reports that as drift on every session. That is the hook working rather than a broken fixture. Once the run writes the state file, the lockfile, the installed copy and the watermark agree, and the hook falls silent.
 
 A fixture with no `origin` remote stops `/q:install` before delivery, with the scaffold left uncommitted. That lets the run go headless (see: Driving a skill headless). Grant it `Read,Write,Edit,Glob,Grep,Bash`.
@@ -21,7 +21,7 @@ q ships no dependencies, so a fixture needs nothing installed beyond the tarball
 A hook change alone needs no session: spawn the hook directly against the fixture and read its stdout. A session shows nothing the hook's own output doesn't.
 
 ```sh
-root=<fixture>/node_modules/@lab43/q/q-extension
+root=<fixture>/node_modules/@fuze/q/q-extension
 CLAUDE_PROJECT_DIR=<fixture> CLAUDE_PLUGIN_ROOT="$root" bash "$root"/hooks/session-start.sh
 ```
 
@@ -43,13 +43,13 @@ claude -p "/q:review" --plugin-dir <root> --allowedTools "Read,Grep,Glob,Agent,T
 - Pass every tool the skill's run needs. A headless session denies what it cannot ask about. A review run needs the reviewer agent's tools, git, and the project's test command for the reviewers' narrow checks. The example grants npm's.
 - A step that asks the user cannot complete headless. The skill reports what it found and stops at the question, which is the evidence a drive wants from it.
 
-To follow edits to the payload as they are made, `npm install <path to this checkout>` in the fixture symlinks q instead of packing it, so every edit reaches the fixture's `@lab43/q` paths without a repack. The symlink loads only through `--plugin-dir`. Once `/q:install` has pinned q through the fixture's own marketplace, Claude Code refuses a plugin path that resolves outside the marketplace directory, and q fails to load until the tarball is installed in the symlink's place. The debug log names the refusal. The tarball is what a consumer gets, so drive the install and the hooks from a tarball (see: Driving q as an installed plugin). A fixture exercising specs needs a `q-docs/specs/` doc, a site carrying its marker, and a `CLAUDE.md` whose index lists the spec under its Specs subsection. The reviewer finds specs from that index and from the markers.
+To follow edits to the payload as they are made, `npm install <path to this checkout>` in the fixture symlinks q instead of packing it, so every edit reaches the fixture's `@fuze/q` paths without a repack. The symlink loads only through `--plugin-dir`. Once `/q:install` has pinned q through the fixture's own marketplace, Claude Code refuses a plugin path that resolves outside the marketplace directory, and q fails to load until the tarball is installed in the symlink's place. The debug log names the refusal. The tarball is what a consumer gets, so drive the install and the hooks from a tarball (see: Driving q as an installed plugin). A fixture exercising specs needs a `q-docs/specs/` doc, a site carrying its marker, and a `CLAUDE.md` whose index lists the spec under its Specs subsection. The reviewer finds specs from that index and from the markers.
 
 ## Taking turns over the marketplace name `q-dev`
 
 The CLI's registry holds one entry per marketplace name, machine-wide. This checkout and every worktree of it publish the name `q-dev`, so only one of them owns it at a time. Every session resolving `q@q-dev` follows whichever registered last, this checkout's own sessions included. Fixtures contend for nothing: they load q through `--plugin-dir` until `/q:install` gives them a marketplace name of their own.
 
-Announce to peers before repointing it (see: @lab43/q references/run-contract.md, Working alongside a peer). Release it when you are done: run `claude plugin marketplace add --scope local <path to this checkout>`. Write the main checkout's path in full. A relative `./` resolves against the session's own directory, so a session running in a worktree takes the name for the worktree instead of releasing it.
+Announce to peers before repointing it (see: @fuze/q references/run-contract.md, Working alongside a peer). Release it when you are done: run `claude plugin marketplace add --scope local <path to this checkout>`. Write the main checkout's path in full. A relative `./` resolves against the session's own directory, so a session running in a worktree takes the name for the worktree instead of releasing it.
 
 Nothing else driving q binds. There are no ports, databases, or services to contend over.
 

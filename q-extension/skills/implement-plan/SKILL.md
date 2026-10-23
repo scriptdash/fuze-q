@@ -12,8 +12,8 @@ Given no plan, list the `pending` plans in `q-docs/plans/` and ask which one.
 - **Follow the run contract** — `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`.
 - **Keep the run note** (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The run note). Its review resolutions feed the PR body, stated as facts about the change.
 - **Context hygiene**: use subagents (Explore for recon, background Bash for checks, `adversarial-reviewer` for review) to keep large output out of the main context.
-- **Plan doc amendments**: when execution deviates from the plan or a verification step contradicts it, fold the outcome into the plan doc as a marked amendment per the lifecycle rules (see: @lab43/q conventions/plans.md, Lifecycle), alongside the work of the phase that surfaced it.
-- **Doc updates**: make the doc changes the plan schedules alongside the phase that carries them, following the documentation policy (see: @lab43/q conventions/documentation.md).
+- **Plan doc amendments**: when execution deviates from the plan or a verification step contradicts it, fold the outcome into the plan doc as a marked amendment per the lifecycle rules (see: @fuze/q conventions/plans.md, Lifecycle), alongside the work of the phase that surfaced it.
+- **Doc updates**: make the doc changes the plan schedules alongside the phase that carries them, following the documentation policy (see: @fuze/q conventions/documentation.md).
 
 ## Step 1: Understand
 
@@ -35,7 +35,7 @@ What emerges completes the agreement: the plan, as clarified, authorizes the res
 
 ## Step 3: Branch
 
-Settle the branch (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The delivery branch). A plan is its own delivery unit, so the call is fresh branching. Require a clean working tree first, the plan doc itself excepted — it may be untracked or modified. Stop and ask the user what to do with anything else. Branch per the plan's `delivery` frontmatter (absent means single-PR). `<plan-name>` below is the plan's filename without its date prefix (source: @lab43/q conventions/plans.md, Filename). A single-PR run skips the command below when the contract's peer check already put it on a worktree's branch; a stacked run's `gh stack init` adopts that branch or creates its first layer:
+Settle the branch (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The delivery branch). A plan is its own delivery unit, so the call is fresh branching. Require a clean working tree first, the plan doc itself excepted — it may be untracked or modified. Stop and ask the user what to do with anything else. Branch per the plan's `delivery` frontmatter (absent means single-PR). `<plan-name>` below is the plan's filename without its date prefix (source: @fuze/q conventions/plans.md, Filename). A single-PR run skips the command below when the contract's peer check already put it on a worktree's branch; a stacked run's `gh stack init` adopts that branch or creates its first layer:
 
 **Single PR:**
 
@@ -81,11 +81,11 @@ For each phase:
 
 When a group's last phase lands, finish that PR before starting the next group:
 
-1. **Verify its work in the running product**: drive what the PR delivers through `/q:drive`, naming the flows to exercise. Derive the scope from the group's content — a judgment that can land on nothing at all, when Step 4's checks fully characterize the work. The final PR is the exception. Drive the plan's Verification section: the integrated state exists now, and its end-to-end proof belongs ahead of this last review. Run the project's full test suite too — the run's only unscoped check. Fix what verification catches and re-verify. In ship mode, commit what this step produced: the fixes, plus anything driving recorded. Record for the PR body what was exercised and what it demonstrated, with the path to each capture. The standing suite goes unlisted (source: @lab43/q conventions/pull-requests.md, Body).
+1. **Verify its work in the running product**: drive what the PR delivers through `/q:drive`, naming the flows to exercise. Derive the scope from the group's content — a judgment that can land on nothing at all, when Step 4's checks fully characterize the work. The final PR is the exception. Drive the plan's Verification section: the integrated state exists now, and its end-to-end proof belongs ahead of this last review. Run the project's full test suite too — the run's only unscoped check. Fix what verification catches and re-verify. In ship mode, commit what this step produced: the fixes, plus anything driving recorded. Record for the PR body what was exercised and what it demonstrated, with the path to each capture. The standing suite goes unlisted (source: @fuze/q conventions/pull-requests.md, Body).
 2. **Final review**: validate the PR's diff (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Validation) with the **correctness** and **conventions** lenses. Hand the reviewers the plan path, which plan steps this PR delivers (and that the rest live in other PRs), and the diff scope — `git diff <group-start-sha>..HEAD` in ship mode; the uncommitted diff plus the group's file list (every file its phases touched) in local mode. Per loop round, re-drive a flow from item 1 only when a fix could change what driving showed. Surviving findings go in the PR body as known problems.
 3. **The local gate**: run it over the PR's uncommitted diff (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The local gate); commits land onto the PR's layer.
 4. **Mark the plan completed** — last or only PR: set `status: completed` in the plan doc's frontmatter and commit it (in a stacked run the lower PRs still show `pending`; the flip lands when the whole stack merges). In local mode this flip rides the go-ahead just given. That is a deliberate exception to the gate: the go-ahead already covers this bookkeeping. Don't ask again.
-5. **Open the PR**, so the user can start reviewing while later groups build. Write every PR's title, and its body per the PR-authoring rules (see: @lab43/q conventions/pull-requests.md), and post its diff comments (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Comments on a PR).
+5. **Open the PR**, so the user can start reviewing while later groups build. Write every PR's title, and its body per the PR-authoring rules (see: @fuze/q conventions/pull-requests.md), and post its diff comments (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Comments on a PR).
 
    Single PR: `git push -u origin <plan-name>`, then open it (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Opening a PR).
 
@@ -103,4 +103,4 @@ When a group's last phase lands, finish that PR before starting the next group:
 
 Reached once a run: after the only PR, or after the stack's last. Every earlier group returns to Step 4 instead.
 
-Close the session by reporting the PR URL(s), the phase list, any caveats, any amendment raised instead of applied, and any follow-up work — filed in the tracker on the user's agreement (source: @lab43/q conventions/issue-tracking.md, Ask before filing).
+Close the session by reporting the PR URL(s), the phase list, any caveats, any amendment raised instead of applied, and any follow-up work — filed in the tracker on the user's agreement (source: @fuze/q conventions/issue-tracking.md, Ask before filing).

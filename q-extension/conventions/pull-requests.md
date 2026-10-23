@@ -1,6 +1,6 @@
 # Pull Requests
 
-Rules for authoring a pull request. Hold its prose to the writing rules (see: @lab43/q conventions/writing.md). A project's own PR conventions win over this doc (source: @lab43/q conventions/conventions.md, Three tiers of conventions).
+Rules for authoring a pull request. Hold its prose to the writing rules (see: @fuze/q conventions/writing.md). A project's own PR conventions win over this doc (source: @fuze/q conventions/conventions.md, Three tiers of conventions).
 
 ## Body
 
@@ -31,7 +31,7 @@ GitHub reads a PR template from `pull_request_template.md` in the repo root, `.g
 
 ## Linking the work
 
-Link the work's source: the tracker item when one exists (source: @lab43/q conventions/issue-tracking.md, Work links back), and the plan doc when the PR implements a plan. Where the tracker closes an item from the link's wording, word it to close only in the PR whose merge finishes the item — the last layer of a stack, the only PR otherwise. Every other layer links the item without closing it, or the first merge closes work the rest of the stack hasn't delivered.
+Link the work's source: the tracker item when one exists (source: @fuze/q conventions/issue-tracking.md, Work links back), and the plan doc when the PR implements a plan. Where the tracker closes an item from the link's wording, word it to close only in the PR whose merge finishes the item — the last layer of a stack, the only PR otherwise. Every other layer links the item without closing it, or the first merge closes work the rest of the stack hasn't delivered.
 
 ## Screenshots and recordings
 

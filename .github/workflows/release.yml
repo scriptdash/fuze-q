@@ -9,9 +9,6 @@ on:
 
 permissions:
   contents: read
-  # Mints the OIDC token npm trusted publishing authenticates with, in place
-  # of a stored token.
-  id-token: write
 
 # One release at a time. Publishes that overlap can leave npm's `latest`
 # pointing at whichever finished last rather than at the higher version.
@@ -31,14 +28,14 @@ jobs:
       # .github/workflows/checks.yml. Keep them in sync, so a release checks
       # what CI checks. Two differences are deliberate and load-bearing:
       # fetch-depth above, which the ancestry check needs, and registry-url
-      # below, which the publish needs.
-      #
-      # Do not pin node-version. Trusted publishing needs npm 11.5.1 or later,
-      # which lts/* carries; an older Node fails the publish with a bare 401.
+      # below, which the publish needs. It writes a user-level .npmrc routing
+      # the @fuze scope to Artifactory and reading its token from
+      # NODE_AUTH_TOKEN.
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-          registry-url: https://registry.npmjs.org
+          registry-url: https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/
+          scope: "@fuze"
           cache: npm
 
       # A release can target any commit. Without this, one cut from a side
@@ -74,4 +71,8 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run check
 
-      - run: npm publish --provenance
+      # NPM_TOKEN is an Artifactory identity token with publish access to
+      # alto-npm. publishConfig in package.json names the registry too.
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

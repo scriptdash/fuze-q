@@ -4,20 +4,20 @@ Rules for how a project's conventions are tiered, written, and enforced.
 
 ## Three tiers of conventions
 
-- **Framework conventions** — the conventions docs `@lab43/q` ships, a dependency in the project's `package.json`. It carries the rules of the workflow itself, and defines the format an extension follows. Every q project installs it, and none can remove it.
-- **Extension conventions** — the installed extensions (see: @lab43/q conventions/extensions.md), each a dependency the same way, so rule improvements reach the project as its versions move. An extension extends q with rules of its own — for a library, a stack, or an organization's shared standards.
+- **Framework conventions** — the conventions docs `@fuze/q` ships, a dependency in the project's `package.json`. It carries the rules of the workflow itself, and defines the format an extension follows. Every q project installs it, and none can remove it.
+- **Extension conventions** — the installed extensions (see: @fuze/q conventions/extensions.md), each a dependency the same way, so rule improvements reach the project as its versions move. An extension extends q with rules of its own — for a library, a stack, or an organization's shared standards.
 - **Project conventions** — `q-docs/conventions/` in the consuming repo (a fixed contract path). Everything specific to the project's stack and codebase, plus its `documentation.md` mirror of the documentation policy, where documentation rulings and deviations are recorded. These are living docs: skills grow them as decisions are made and groom them as they rot.
 
 **Precedence: project conventions win over any extension's rule, whichever extension carries it. An extension's rule in turn wins over q's.** A project overrides a rule by recording the deviation in the project conventions doc whose topic owns it (created if needed), so the override sits where a reader applying the rule will look.
 
-- A deviation is written as an ordinary rule: the decision and the rationale, plus an overrides marker (see: @lab43/q conventions/documentation.md, Markers) naming the rule it replaces.
+- A deviation is written as an ordinary rule: the decision and the rationale, plus an overrides marker (see: @fuze/q conventions/documentation.md, Markers) naming the rule it replaces.
 - A deviation is refined in place or deleted as the decision evolves, never appended as a log entry.
 - An override outlived by its target — updated to agree, or gone — is spent and comes out.
 - Overriding a rule needs no other mechanism — the readers are agents, so stating the deviation is enough.
 
 A refinement that reaches beyond this project — one that would improve a q rule, or an extension's — is a candidate to upstream. Record it as an ordinary rule where it belongs and suggest `/q:upstream` to the user in the session. Never annotate the doc with its upstream candidacy.
 
-Conventions move into what a repo publishes when their audience grows beyond one project, on the user's decision (source: @lab43/q conventions/extensions.md, Which rules ship).
+Conventions move into what a repo publishes when their audience grows beyond one project, on the user's decision (source: @fuze/q conventions/extensions.md, Which rules ship).
 
 ## Conventions docs
 
@@ -32,7 +32,7 @@ Rules for whoever is about to write or evaluate code — the unit this workflow 
 - Record decisions and rejected alternatives only when they're highly likely to come up again: the alternative is the first thing a reader would reach for, or something deliberately ignored reads as an oversight. Each rejection names the alternative and the reason, nothing more.
 - The rationale stands inline — never cite the repo's issues or PRs as provenance; git history is the paper trail. Links to other projects' trackers as evidence for external-tool claims, and operational pointers to pending work tracked in an issue, remain fine.
 
-**A rule lands in the doc whose topic owns it**, integrated into the section it belongs to (see: @lab43/q conventions/writing.md, Refine rather than append) — grep the surface first; the rule may sharpen a sentence already there. A new doc is created only when no existing topic owns the rule.
+**A rule lands in the doc whose topic owns it**, integrated into the section it belongs to (see: @fuze/q conventions/writing.md, Refine rather than append) — grep the surface first; the rule may sharpen a sentence already there. A new doc is created only when no existing topic owns the rule.
 
 ## Code examples in conventions docs
 
@@ -46,4 +46,4 @@ Rejected: full copy-paste code templates, even compile-checked ones — doc inac
 
 ## Documentation is the last rung
 
-Documentation is the weakest enforcement rung (source: @lab43/q conventions/principles.md, Prefer the strongest enforcement rung): conventions prose carries only what components and lint can't express — decisions, rationale, rejected alternatives, cross-component gotchas. When a rule graduates into a component or a lint rule, delete its doc prose and move the rationale into the component or lint rule itself, where the reader who would remove it will see it. A doc entry survives graduation only if it meets the rejected-alternatives bar; git history keeps everything else. A spec's prose is the one carve-out: it stays after a test holds it, because it records the intent behind the test, and the test cannot drift from the commitment without the drift being visible (source: @lab43/q conventions/specs.md, Enforcement).
+Documentation is the weakest enforcement rung (source: @fuze/q conventions/principles.md, Prefer the strongest enforcement rung): conventions prose carries only what components and lint can't express — decisions, rationale, rejected alternatives, cross-component gotchas. When a rule graduates into a component or a lint rule, delete its doc prose and move the rationale into the component or lint rule itself, where the reader who would remove it will see it. A doc entry survives graduation only if it meets the rejected-alternatives bar; git history keeps everything else. A spec's prose is the one carve-out: it stays after a test holds it, because it records the intent behind the test, and the test cannot drift from the commitment without the drift being visible (source: @fuze/q conventions/specs.md, Enforcement).

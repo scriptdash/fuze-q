@@ -2,31 +2,31 @@
 
 The shape of a project's agent briefing — `CLAUDE.md`. `/q:install` scaffolds it, every change to an indexed doc keeps it current, and `/q:groom-docs` checks it.
 
-The documentation policy decides what the briefing must carry (see: @lab43/q conventions/documentation.md, Taxonomy). This file gives that a shape.
+The documentation policy decides what the briefing must carry (see: @fuze/q conventions/documentation.md, Taxonomy). This file gives that a shape.
 
 ## The template
 
 ```markdown
 ## Documentation
 
-This project follows q, an agentic coding workflow. Its documentation is indexed below, a subsection per kind of doc (source: @lab43/q conventions/documentation.md, Taxonomy). When a change makes a doc wrong — the README and this briefing itself included — fix the doc in the same change, following the documentation policy (see: @lab43/q conventions/documentation.md).
+This project follows q, an agentic coding workflow. Its documentation is indexed below, a subsection per kind of doc (source: @fuze/q conventions/documentation.md, Taxonomy). When a change makes a doc wrong — the README and this briefing itself included — fix the doc in the same change, following the documentation policy (see: @fuze/q conventions/documentation.md).
 
-When another session is already working this repo, take a worktree rather than sharing the checkout (source: @lab43/q references/run-contract.md, The delivery branch).
+When another session is already working this repo, take a worktree rather than sharing the checkout (source: @fuze/q references/run-contract.md, The delivery branch).
 
-Package doc paths are package name plus path from the package's `q-extension/` payload directory, resolved under `node_modules/`: `@lab43/q conventions/principles.md` is `node_modules/@lab43/q/q-extension/conventions/principles.md` (source: @lab43/q conventions/documentation.md, Package doc paths).
+Package doc paths are package name plus path from the package's `q-extension/` payload directory, resolved under `node_modules/`: `@fuze/q conventions/principles.md` is `node_modules/@fuze/q/q-extension/conventions/principles.md` (source: @fuze/q conventions/documentation.md, Package doc paths).
 
 ### Conventions
 
-Binding decisions about how this project's code and docs get written, recorded as they are made (source: @lab43/q conventions/documentation.md, Taxonomy).
+Binding decisions about how this project's code and docs get written, recorded as they are made (source: @fuze/q conventions/documentation.md, Taxonomy).
 
-Conventions come in three tiers: q's own, the conventions of any installed extensions, and this project's own `q-docs/conventions/` (source: @lab43/q conventions/conventions.md, Three tiers of conventions). q and the extensions are dependencies in `package.json`. Project rules win over an extension's rule, and an extension's rule wins over q's. Check all three tiers before writing code, before design decisions and reviews, and before changing docs.
+Conventions come in three tiers: q's own, the conventions of any installed extensions, and this project's own `q-docs/conventions/` (source: @fuze/q conventions/conventions.md, Three tiers of conventions). q and the extensions are dependencies in `package.json`. Project rules win over an extension's rule, and an extension's rule wins over q's. Check all three tiers before writing code, before design decisions and reviews, and before changing docs.
 
-`@lab43/q` — <its `q.description`>
+`@fuze/q` — <its `q.description`>
 
-- `@lab43/q conventions/principles.md` — cross-cutting rules for any design decision, plan, or review
-- `@lab43/q conventions/documentation.md` — what belongs in a project's documentation, where it lives, and how it stays accurate
-- `@lab43/q conventions/pull-requests.md` — rules for authoring a pull request
-- `@lab43/q conventions/writing.md` — rules for writing prose: docs, plans, PR bodies, anything a human or agent will read
+- `@fuze/q conventions/principles.md` — cross-cutting rules for any design decision, plan, or review
+- `@fuze/q conventions/documentation.md` — what belongs in a project's documentation, where it lives, and how it stays accurate
+- `@fuze/q conventions/pull-requests.md` — rules for authoring a pull request
+- `@fuze/q conventions/writing.md` — rules for writing prose: docs, plans, PR bodies, anything a human or agent will read
 
 `<package>` — <its `q.description`>
 
@@ -43,13 +43,13 @@ This project's own:
 
 ### Specs
 
-What this product commits to, stated as behavior the code must honor (source: @lab43/q conventions/documentation.md, Taxonomy).
+What this product commits to, stated as behavior the code must honor (source: @fuze/q conventions/documentation.md, Taxonomy).
 
 - `q-docs/specs/<name>.md` — one line per spec, restating its intro
 
 ### Guides
 
-How to use and operate this product, rather than how to write its code (source: @lab43/q conventions/documentation.md, Taxonomy).
+How to use and operate this product, rather than how to write its code (source: @fuze/q conventions/documentation.md, Taxonomy).
 
 `<package>` — <its `q.description`>
 
@@ -68,11 +68,11 @@ This project's own:
 
 - **Write into `CLAUDE.md`**, creating it when it doesn't exist. Leave any `AGENTS.md` the project keeps for other tools alone. Linking the two is the project's call, not q's.
 - **Conform to the structure**: the section heading, a subsection per kind of doc in the order they run here, the groups in their order, one line per doc. Name each group for what it actually holds.
-- **Open each subsection with what its docs are for**, in the template's words, so a reader crossing from one kind to the next meets the change of kind (source: @lab43/q conventions/documentation.md, Taxonomy).
-- **Head each group with what its docs govern** (source: @lab43/q conventions/documentation.md, Taxonomy). A package's group is headed by its name, an em dash, and the `q.description` from its `package.json`, q's own group included (see: @lab43/q conventions/extensions.md, Description). A package shipping no `q.description` gets a heading of its name alone, never its `description` — that field answers the registry's readers.
-- **Give the payload this repo ships its own groups.** When the repo's own `q-extension/` holds `conventions/` or `guides/`, it ships those docs and consumes them too: index them in the same form as an installed extension's, read from the working tree rather than `node_modules/` (see: @lab43/q conventions/extensions.md, Authoring).
+- **Open each subsection with what its docs are for**, in the template's words, so a reader crossing from one kind to the next meets the change of kind (source: @fuze/q conventions/documentation.md, Taxonomy).
+- **Head each group with what its docs govern** (source: @fuze/q conventions/documentation.md, Taxonomy). A package's group is headed by its name, an em dash, and the `q.description` from its `package.json`, q's own group included (see: @fuze/q conventions/extensions.md, Description). A package shipping no `q.description` gets a heading of its name alone, never its `description` — that field answers the registry's readers.
+- **Give the payload this repo ships its own groups.** When the repo's own `q-extension/` holds `conventions/` or `guides/`, it ships those docs and consumes them too: index them in the same form as an installed extension's, read from the working tree rather than `node_modules/` (see: @fuze/q conventions/extensions.md, Authoring).
 - **Treat the prose as a floor, not a script.** Carry at least what the template's prose carries. Leave the project's own wording where it says the same thing. Where a statement isn't true of the project — it authors an extension rather than installing one, or loads the plugin some other way — say what is true instead.
 - **Keep what the project put there** — its own standing instructions, notes, and index entries beyond the required ones. Work missing information into what is already written rather than bolting a sentence alongside it. Rewrite freely to do that, but drop nothing the project said.
 - **Drop a group with no entries.** A fresh project has no extensions, so those groups arrive with the first one. Guides holding only the project's own need no group heading. q's conventions group is always there. So are the three subsections, because a subsection's heading and its statement of purpose are what tell a session and its user that the kind of doc exists and where it goes. When a subsection has no docs to index yet, its list is the single line `- none yet`.
-- **Index every doc the policy requires, and nothing stale** — every conventions doc and every guide from an installed extension, from this repo's own payload, or the project's own, every guide q ships, and every spec. Of q's conventions, index the four the template lists and no others (source: @lab43/q conventions/documentation.md, Taxonomy). Drop the line for a doc that is gone. An extension the project no longer installs loses every line and its heading with them. The installed extensions are the direct dependencies — `dependencies` and `devDependencies` alike — whose installed copy carries both the `q-extension` keyword and a payload directory (source: @lab43/q conventions/extensions.md, Identity). An extension gets a group only in a subsection it ships docs for.
-- **Write each line as a path plus a blurb restating the doc's intro** — q's docs, an installed extension's, and this repo's own payload by their path form (see: @lab43/q conventions/documentation.md, Package doc paths), the project's own by repo-relative path.
+- **Index every doc the policy requires, and nothing stale** — every conventions doc and every guide from an installed extension, from this repo's own payload, or the project's own, every guide q ships, and every spec. Of q's conventions, index the four the template lists and no others (source: @fuze/q conventions/documentation.md, Taxonomy). Drop the line for a doc that is gone. An extension the project no longer installs loses every line and its heading with them. The installed extensions are the direct dependencies — `dependencies` and `devDependencies` alike — whose installed copy carries both the `q-extension` keyword and a payload directory (source: @fuze/q conventions/extensions.md, Identity). An extension gets a group only in a subsection it ships docs for.
+- **Write each line as a path plus a blurb restating the doc's intro** — q's docs, an installed extension's, and this repo's own payload by their path form (see: @fuze/q conventions/documentation.md, Package doc paths), the project's own by repo-relative path.

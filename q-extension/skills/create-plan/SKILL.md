@@ -10,17 +10,17 @@ The idea to plan comes from the invocation, at any fidelity — a phrase ("email
 ## Ground rules
 
 - **Follow the run contract** — `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`.
-- **Plan, don't implement**: implement nothing, and make no commits unless the user asks. The plan doc is this skill's product — `q-docs/plans/<date>-<plan-name>.md` (source: @lab43/q conventions/plans.md, Filename), creating the directory on the first plan. Two writes sit outside it: what driving taught, recorded in the project's driving manual, and the corrections planning turns up (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Corrections become rules).
+- **Plan, don't implement**: implement nothing, and make no commits unless the user asks. The plan doc is this skill's product — `q-docs/plans/<date>-<plan-name>.md` (source: @fuze/q conventions/plans.md, Filename), creating the directory on the first plan. Two writes sit outside it: what driving taught, recorded in the project's driving manual, and the corrections planning turns up (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Corrections become rules).
 - **Ground everything**: every claim about current behavior comes from reading the code (cite `file:line`); every external fact (package versions, library APIs, option names, client support) is verified during planning, never stated from memory — online where reading settles it, and through `/q:drive` where only running something can, naming the question to settle as what to exercise. A plan resting on an unverified assumption is a planning failure, not a note for the implementer.
 - **Evidence can flip decisions**: when exploration contradicts a tentative decision (a planned feature depends on data that turns out not to exist), surface the finding prominently and re-decide before it gets written into the plan.
-- **Tooling limitations never dictate content** (see: @lab43/q conventions/principles.md): if a design choice would break a test helper, CI step, or script, the plan schedules the tooling fix — it does not bend the design around it.
+- **Tooling limitations never dictate content** (see: @fuze/q conventions/principles.md): if a design choice would break a test helper, CI step, or script, the plan schedules the tooling fix — it does not bend the design around it.
 
 ## Step 1: Explore
 
 Before proposing anything, establish current state:
 
 1. The relevant code — use an Explore subagent for breadth; read the load-bearing files yourself.
-2. The conventions and specs governing the affected territory, found from the agent briefing's docs index — plus this workflow's own rubric, the plan format (see: @lab43/q conventions/plans.md).
+2. The conventions and specs governing the affected territory, found from the agent briefing's docs index — plus this workflow's own rubric, the plan format (see: @fuze/q conventions/plans.md).
 3. Prior plans in the same territory (`q-docs/plans/`, if it exists). Never read them yourself, because a plan you have read lends the new one its shape. Hand a subagent the territory. Have it report, for each plan in that territory, its status, its decisions, its rejected alternatives with their grounds, and its deferrals. It reports in its own words, quoting no plan text and describing no plan's layout. Weigh the report for the rationale, not the ruling: a rejection whose grounds still hold isn't re-proposed; one whose grounds have shifted is back on the table, with its history. Deferrals are candidates to raise with the user, not inheritances. Status matters: a `pending` plan in the same territory is a possible collision to surface, and an `abandoned` one's decisions never bound anything. Trust newer plans and the code over older ones.
 
 ## Step 2: Discuss
@@ -28,13 +28,13 @@ Before proposing anything, establish current state:
 Tease out the goals and key aspects with the user, in conversational mode (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Collaboration modes). Beyond the design decisions themselves, two calls are settled here:
 
 - Scope boundaries are decisions too: record what's explicitly out of scope or deferred, and why.
-- The delivery shape — single PR or stacked, per the format's defaults (see: @lab43/q conventions/plans.md, Delivery shape) and any PR rules the project's conventions record. The defaults usually decide it: state the call for veto rather than asking, unless the estimate is genuinely borderline.
+- The delivery shape — single PR or stacked, per the format's defaults (see: @fuze/q conventions/plans.md, Delivery shape) and any PR rules the project's conventions record. The defaults usually decide it: state the call for veto rather than asking, unless the estimate is genuinely borderline.
 
 Once the scope, delivery shape, and key design decisions feel settled, ask for the go-ahead to write. That settled shape is the agreement: Steps 3 and 4 run autonomously inside it, and Step 5 is conversational again.
 
 ## Step 3: Write the plan
 
-Write `q-docs/plans/<date>-<plan-name>.md` according to the plan format (see: @lab43/q conventions/plans.md) and the writing rules (see: @lab43/q conventions/writing.md). Cite the spec sections governing the territory in Context, as givens (source: @lab43/q conventions/plans.md, Sections). When the plan changes committed behavior, schedule the spec's amendment in the phase that ships the behavior (source: @lab43/q conventions/specs.md, Disagreement). Before launching the review, read the draft top to bottom as its reader will. Move what fails the format's reading order: a reference whose target comes later (source: @lab43/q conventions/plans.md, Audience), or a given sitting in Context that one decision rests on (source: @lab43/q conventions/plans.md, Sections).
+Write `q-docs/plans/<date>-<plan-name>.md` according to the plan format (see: @fuze/q conventions/plans.md) and the writing rules (see: @fuze/q conventions/writing.md). Cite the spec sections governing the territory in Context, as givens (source: @fuze/q conventions/plans.md, Sections). When the plan changes committed behavior, schedule the spec's amendment in the phase that ships the behavior (source: @fuze/q conventions/specs.md, Disagreement). Before launching the review, read the draft top to bottom as its reader will. Move what fails the format's reading order: a reference whose target comes later (source: @fuze/q conventions/plans.md, Audience), or a given sitting in Context that one decision rests on (source: @fuze/q conventions/plans.md, Sections).
 
 ## Step 4: Adversarial review
 

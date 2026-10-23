@@ -4,7 +4,7 @@
 // other channel runs every session. The checks anchor on the lockfile and on
 // node_modules — the lockfile is exact whatever the manifest's specifier
 // looks like, and npm moves it even when the specifier stays put: the q copy
-// this session loaded vs the lockfile's @lab43/q, each watermarked package's
+// this session loaded vs the lockfile's @fuze/q, each watermarked package's
 // lockfile version vs its watermark vs its installed version, and the
 // reverse direction — an installed extension with no watermark entry
 // (installed by hand, never indexed).
@@ -12,7 +12,7 @@
 // The remedy is uniform — /q:reconcile re-derives the specifics and routes
 // each finding to its remedy — so every failure emits the same message and
 // the script stops at the first one. Two silences are designed. A project
-// that declares no @lab43/q devDependency is not a q project. A dependency
+// that declares no @fuze/q devDependency is not a q project. A dependency
 // with no watermark entry that cannot be read as an extension is not one to
 // report. Fail every other missing or unreadable input like any other
 // invalid state.
@@ -63,7 +63,7 @@ const parse = (text) => {
 const installedVersion = (dir) => parse(read(path.join(dir, "package.json")) ?? "")?.version;
 
 // The manifest is read for membership and specifiers, never for versions:
-// @lab43/q in devDependencies is what makes this a q project, and a
+// @fuze/q in devDependencies is what makes this a q project, and a
 // watermarked package missing from both dependency maps was removed out of
 // band. A missing manifest means not a q project. One that exists but can't
 // be read or parsed fails like any other invalid state.
@@ -86,8 +86,8 @@ const devDeps = depMap("devDependencies");
 // devDependency check below.
 const deps = { ...depMap("dependencies"), ...devDeps };
 
-// Declaring no @lab43/q devDependency is a designed silence.
-if (!Object.hasOwn(devDeps, "@lab43/q")) process.exit(0);
+// Declaring no @fuze/q devDependency is a designed silence.
+if (!Object.hasOwn(devDeps, "@fuze/q")) process.exit(0);
 
 // The q this session actually loaded. CLAUDE_PLUGIN_ROOT is the directory it
 // was resolved from, and npm wrote that copy's version, so comparing it
@@ -100,7 +100,7 @@ const loaded = installedVersion(path.join(root, ".."));
 if (typeof loaded !== "string") fail();
 // A missing lockfile, or one that cannot resolve q, reads as undefined and
 // fails this comparison like any other drift.
-const lockedQ = lockedVersion(proj, "@lab43/q", devDeps["@lab43/q"]);
+const lockedQ = lockedVersion(proj, "@fuze/q", devDeps["@fuze/q"]);
 if (loaded !== lockedQ) fail();
 
 // Watermarks. A project with q declared but no state file is unrecorded drift.
@@ -117,7 +117,7 @@ if (typeof recon !== "object" || recon === null || Array.isArray(recon)) fail();
 // loop below cannot stand in. It identifies extensions by a keyword read from
 // node_modules, which q does not carry and which an uninstalled or stale copy
 // doesn't supply either.
-if (!Object.hasOwn(recon, "@lab43/q")) fail();
+if (!Object.hasOwn(recon, "@fuze/q")) fail();
 
 for (const [ext, mark] of Object.entries(recon)) {
   if (typeof mark !== "string") fail();

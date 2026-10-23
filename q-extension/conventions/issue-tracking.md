@@ -1,6 +1,6 @@
 # Issue Tracking
 
-Rules for working a project's issue tracker — the shared source of work items — from any session. A project's own tracker conventions win over this doc (source: @lab43/q conventions/conventions.md, Three tiers of conventions), and so does an issue template the tracker carries.
+Rules for working a project's issue tracker — the shared source of work items — from any session. A project's own tracker conventions win over this doc (source: @fuze/q conventions/conventions.md, Three tiers of conventions), and so does an issue template the tracker carries.
 
 ## Respect existing claims
 
@@ -16,7 +16,7 @@ Filing a new tracker item — the follow-up work a session surfaces — happens 
 
 ## Write for whoever picks it up
 
-Whoever reads an item holds none of the context that produced it. Hold its prose to the writing rules (see: @lab43/q conventions/writing.md).
+Whoever reads an item holds none of the context that produced it. Hold its prose to the writing rules (see: @fuze/q conventions/writing.md).
 
 Four readers act on an item, each deciding something different:
 

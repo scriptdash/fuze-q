@@ -104,7 +104,7 @@ The round is the product, so its diff runs from Step 1's recorded SHA: `git diff
 
 1. **The local gate**: run it over the session's uncommitted work (see: `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, The local gate).
 2. **Push**: `git push origin HEAD`.
-3. **Bring the PR body, title, and diff comments up to date** wherever the round changed what they claim, the findings that survived Step 5 included (see: @lab43/q conventions/pull-requests.md; `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, Comments on a PR). Without `gh`, hand the user the updated title and body in a fenced block, so they paste as written. Diff comments are skipped without `gh`, as the contract says.
+3. **Bring the PR body, title, and diff comments up to date** wherever the round changed what they claim, the findings that survived Step 5 included (see: @fuze/q conventions/pull-requests.md; `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, Comments on a PR). Without `gh`, hand the user the updated title and body in a fenced block, so they paste as written. Diff comments are skipped without `gh`, as the contract says.
 4. **Reply**, when replying was agreed: post each item's resolution where the feedback was written. Skip an item the user raised in session. It has no thread to answer. Give the reviewer what they need to understand it — the answer, the evidence behind a push-back, or the reason a fix took the shape it did. Sign each reply (see: `${CLAUDE_PLUGIN_ROOT}/references/run-contract.md`, Sign what a run posts). Write each reply to a file and pass it by path, so apostrophes in the prose can't break the command. Reply to an inline thread at its first comment's `databaseId`:
 
    ```bash
@@ -114,4 +114,4 @@ The round is the product, so its diff runs from Step 1's recorded SHA: `git diff
    Answer a top-level comment or a review summary with `gh pr comment <n> --body-file <reply-file>`. Never mark a thread resolved — that is the reviewer's call.
 
    Without `gh`, when drafting was agreed, hand the user each reply in a fenced block, naming the comment it answers. Sign each one all the same: the user posts it under their account, but Claude wrote it.
-5. Close the session by reporting each item's resolution, any caveats, any amendment raised instead of applied, and any follow-up work — filed in the tracker on the user's agreement (source: @lab43/q conventions/issue-tracking.md, Ask before filing).
+5. Close the session by reporting each item's resolution, any caveats, any amendment raised instead of applied, and any follow-up work — filed in the tracker on the user's agreement (source: @fuze/q conventions/issue-tracking.md, Ask before filing).

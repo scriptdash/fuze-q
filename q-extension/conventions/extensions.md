@@ -13,7 +13,7 @@ Look for extensions across a project's direct `dependencies` as well as its `dev
 - registers the plugin it ships, for the project's sessions to load
 - reconciles the project against its releases
 
-q is not an extension but what extensions extend: the framework whose rules they add to and whose format they follow (source: @lab43/q conventions/conventions.md, Three tiers of conventions). `@lab43/q` carries no keyword, and is named outright wherever a rule reaches it.
+q is not an extension but what extensions extend: the framework whose rules they add to and whose format they follow (source: @fuze/q conventions/conventions.md, Three tiers of conventions). `@fuze/q` carries no keyword, and is named outright wherever a rule reaches it.
 
 ## Which rules ship
 
@@ -32,7 +32,7 @@ Rejected: shipping the payload's conventions at the contract path, `q-docs/conve
 
 ## Description
 
-`package.json`'s `q.description` states the territory the extension's docs cover. A consuming project's briefing heads each of the extension's groups of index lines with it (source: @lab43/q conventions/documentation.md, Taxonomy). Name that territory, not the package's shape.
+`package.json`'s `q.description` states the territory the extension's docs cover. A consuming project's briefing heads each of the extension's groups of index lines with it (source: @fuze/q conventions/documentation.md, Taxonomy). Name that territory, not the package's shape.
 
 ## Layout
 
@@ -40,8 +40,8 @@ A package's payload is a `q-extension/` directory at its package root. Everythin
 
 What it holds depends on what the extension carries:
 
-- `conventions/` when it ships conventions docs, each written to the documentation policy (see: @lab43/q conventions/documentation.md).
-- `guides/` when it ships guides to using what the package provides. Each is written to the policy's rules for guides (see: @lab43/q conventions/documentation.md, Taxonomy).
+- `conventions/` when it ships conventions docs, each written to the documentation policy (see: @fuze/q conventions/documentation.md).
+- `guides/` when it ships guides to using what the package provides. Each is written to the policy's rules for guides (see: @fuze/q conventions/documentation.md, Taxonomy).
 - `.claude-plugin/` when it ships a plugin, beside whatever that plugin loads — its skills, agents and hooks. `q-extension/` is then the plugin root, and `${CLAUDE_PLUGIN_ROOT}` resolves to it. A consuming project registers the plugin in its own marketplace under the `name` in the plugin's `plugin.json`, so that name is the namespace its sessions type: `/<name>:<skill>`. Choose one no other extension is likely to carry. `q` is taken. What else a plugin may hold is Claude Code's to decide; q fixes only where its root sits.
 
 Every extension ships at least one of the three, which is what identifies a payload (see: Identity). Anything else the package ships for q sits beside them.
@@ -52,7 +52,7 @@ Rejected: a `q` metadata key in `package.json` naming paths or listing docs — 
 
 ## Pinning
 
-Declare `@lab43/q` as a devDependency in the `package.json` at the repo root. That is the only place anything looks for it, whatever else the repo holds — a monorepo declares q at the root, never in a workspace manifest. Keep it a devDependency: q is tooling rather than code a project imports, and a project holding it in `dependencies` goes unvalidated at session start, silently.
+Declare `@fuze/q` as a devDependency in the `package.json` at the repo root. That is the only place anything looks for it, whatever else the repo holds — a monorepo declares q at the root, never in a workspace manifest. Keep it a devDependency: q is tooling rather than code a project imports, and a project holding it in `dependencies` goes unvalidated at session start, silently.
 
 Declare each extension in that same root manifest. `dependencies` and `devDependencies` both serve (see: Identity), but no other manifest does — a declaration in a workspace package is one nothing reads. The specifier's form is the project's own choice: q reads versions from the lockfile and `node_modules`, never from the manifest.
 
@@ -64,7 +64,7 @@ In its authoring project, an extension's conventions docs, its guides, and its `
 
 They are indexed there too. The authoring repo's briefing gives them groups of their own, shaped like a consumed extension's and headed the same way. The groups carry no pin, because a repo does not depend on itself, and no watermark, because a watermark certifies that changed rules have been absorbed and there is nothing to absorb in rules you are editing.
 
-An extension's doc may deviate from a q rule the same way a project doc does, stating the deviation with an overrides marker (see: @lab43/q conventions/documentation.md, Markers); the project's own rulings still win over any extension's (source: @lab43/q conventions/conventions.md, Three tiers of conventions).
+An extension's doc may deviate from a q rule the same way a project doc does, stating the deviation with an overrides marker (see: @fuze/q conventions/documentation.md, Markers); the project's own rulings still win over any extension's (source: @fuze/q conventions/conventions.md, Three tiers of conventions).
 
 The plugin the extension ships loads from the working tree too. Add its entry to the project's own marketplace by hand, beside q's: sourced at `./q-extension` and named by the `name` in its `plugin.json`. Enable it in `.claude/settings.json` the way q's entry is enabled there.
 

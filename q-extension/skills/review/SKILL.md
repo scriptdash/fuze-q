@@ -34,7 +34,7 @@ Fixes to an outstanding change another run owns stay uncommitted with it — don
 ## Step 4: Apply
 
 1. When delivering now, create a branch unless the session is already on one.
-2. The rulings are the agreement — apply the approved fixes autonomously, approved convention amendments included. Fixes and amendments that land in policy-governed docs follow the documentation policy (see: @lab43/q conventions/documentation.md). Run the project's checks covering what changed.
+2. The rulings are the agreement — apply the approved fixes autonomously, approved convention amendments included. Fixes and amendments that land in policy-governed docs follow the documentation policy (see: @fuze/q conventions/documentation.md). Run the project's checks covering what changed.
 3. Sweep the rulings for lessons the docs should carry: a rejected finding whose reason is a rule nobody wrote down, a finding rejected because this one site is legitimately outside the rule, or a correction the next reviewer would have to re-derive. Each one is a correction to record (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Corrections become rules). In ship mode, commit the fixes and the recordings together.
 
 ## Step 5: Adversarial review
@@ -45,5 +45,5 @@ When delivering now, validate the whole diff being delivered (see: ${CLAUDE_PLUG
 
 1. Fixes not delivered now — joining an outstanding change another run owns, or left in the tree — stay uncommitted for the run that delivers them. Skip to the report.
 2. **The local gate**: run it over the uncommitted fixes (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The local gate).
-3. **Open the PR**: push the branch and open the PR per the PR-authoring rules (see: @lab43/q conventions/pull-requests.md).
+3. **Open the PR**: push the branch and open the PR per the PR-authoring rules (see: @fuze/q conventions/pull-requests.md).
 4. Close the session by reporting: findings and rulings including what was dropped, the check results, the doc entries recorded, and any amendment raised instead of applied, listed on its own. When work was left in the tree, say that it is unvalidated until delivered, and that a later bare `/q:review` reviews and delivers the accumulation.
