@@ -38,7 +38,7 @@ Planned changes:
    - When the repo has a PR template, fill in the template and add nothing else.
    - Prescribe no format when the repo has no template, and no title rule.
    - Move diff comments and their signature into the run contract, so only q's skill runs post them. PR bodies carry no signature.
-7. [ ] **Remove `/q:address-feedback` and `/q:parallelize`**, along with their mentions in this README, the workflow chart, and other skills.
+7. [x] **Make `/q:address-feedback` work without the GitHub CLI.** Without `gh`, the user pastes the reviewer's feedback, and the run hands back the updated PR title, body, and drafted replies to paste.
 8. [ ] **Publish.** Publish as @fuze/q. Change all references from @lab43/q.
 9. [ ] **Use any GitHub integration, not just `gh`:**
    - Do each GitHub operation through whatever integration the session has, such as `gh` or a GitHub MCP server.
@@ -171,7 +171,7 @@ From there:
 - `/q:review` — Review anything ad hoc — a diff, file, directory, feature, or plan doc — through the adversarial reviewer. You rule on the findings and decide what to change.
 - `/q:create-plan` — Collaboratively write a feature plan and save it to `q-docs/plans/`.
 - `/q:implement-plan` — Execute a plan end-to-end, in a single PR or stacked PRs.
-- `/q:address-feedback` — Review feedback on a PR. Implement the agreed fixes then push them to the PR, with replies posted when you want them.
+- `/q:address-feedback` — Review feedback on a PR. Implement the agreed fixes then push them to the PR, with replies posted when you want them. Without `gh`, you paste the feedback in and post the replies yourself.
 
 **Docs:**
 

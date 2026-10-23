@@ -11,7 +11,7 @@ A run is in one of two modes, depending on whether the user has agreed on what t
 
 ## Review modes
 
-Work that will become commits runs in one of two review modes, settled up front — with the run's opening questions, or at the go-ahead that enters autonomous mode. Once settled, the run never reopens it: a ship run reaches its PR without stopping again, so the user comes back to a PR waiting, not a prompt asking whether to open one.
+Work that will become commits runs in one of two review modes, settled up front. Ask it as a question in the run's AskUserQuestion batch, even when it is the batch's only question (see: Batch questions). A run another skill hands the mode to, as `/q:triage` hands it to `/q:implement`, takes it as settled. Never fold it into the plain-text go-ahead, where it reads as one more line of the scope and goes unanswered. A go-ahead that leaves the mode unanswered has not settled it: ask before the first commit rather than choosing one. Once settled, the run never reopens it: a ship run reaches its PR without stopping again, so the user comes back to a PR waiting, not a prompt asking whether to open one.
 
 The user can still overrule a step: telling a local run to commit now (see: The local gate), or a ship run to hold its push. The ruling spends itself on the step it names — the mode stands for everything after, however much the instruction resembles the other mode's procedure. Name the conflict before complying rather than inferring a switch.
 
