@@ -16,7 +16,7 @@ Work that will become commits runs in one of two review modes, settled up front 
 The user can still overrule a step: telling a local run to commit now (see: The local gate), or a ship run to hold its push. The ruling spends itself on the step it names — the mode stands for everything after, however much the instruction resembles the other mode's procedure. Name the conflict before complying rather than inferring a switch.
 
 - **Local** — nothing is committed unreviewed: work pauses uncommitted at each review point the running skill defines, and the user's go-ahead is what commits it.
-- **Ship** — commit as the running skill's own procedure calls for, without asking, and push when the work is done; the user reviews on GitHub, so finish by directing them to the PR(s), or to what opens each one when the run could not (see: @lab43/q conventions/pull-requests.md, Opening). The grant ends at the PR: merging is the user's. When the PR opened as a draft (see: @lab43/q conventions/pull-requests.md, Draft), say so: marking it ready is the user's too.
+- **Ship** — commit as the running skill's own procedure calls for, without asking, and push when the work is done; the user reviews on GitHub, so finish by directing them to the PR(s), or to what opens each one when the run could not (see: Opening a PR). The grant ends at the PR: merging is the user's. When the PR opened as a draft (see: Draft pull requests), say so: marking it ready is the user's too.
 
 ## The run note
 
@@ -27,9 +27,9 @@ Keep the run's place and what it has settled in `q-run.md` in the session's scra
 - the items announced to peers, so they get released
 - the SHAs a review diff is scoped to, and in local mode the files each review point covers
 - each review round's BLOCKING findings and how each was resolved, fixed or rejected with the reason
-- what verification exercised and what it showed, with the path to each capture, for the PR's Testing section
+- what verification exercised and what it showed, with the path to each capture, for the PR body's evidence that the change works
 
-Update it at every step boundary and whenever one of those facts changes. Never copy what the repo shows: the diff, the branch state, the checks' output. The note is what the run reads from when it restates the agreed scope for a reviewer, writes the PR's Callouts, Caveats, and Testing, and reports at the close. A skill another skill invokes keeps its place in the same note. Remove the note when the outermost run closes.
+Update it at every step boundary and whenever one of those facts changes. Never copy what the repo shows: the diff, the branch state, the checks' output. The note is what the run reads from when it restates the agreed scope for a reviewer, writes the PR body, and reports at the close. A skill another skill invokes keeps its place in the same note. Remove the note when the outermost run closes.
 
 The note is also what survives compaction. Compaction replaces the conversation with a summary, and the skill's text, the agreement, and the run's place go with it. A q hook points the session at the note after every compaction. Read it, then read the skill again from the step it names before acting. The summary decides whether the run is still live. When it shows the run ended or was set aside, remove the note instead. A note left behind resurfaces at the next compaction, though its run is over.
 
@@ -119,7 +119,7 @@ Record each one directly, in the doc the documentation policy assigns it (see: @
 
 Record a correction in the change that prompted it. The diff at each review point carries its own doc updates, so a user approving the work sees everything the run proposes. A correction that arrives during review joins that iteration. Never defer one to the closing report, and never leave the user trusting that a doc update will follow.
 
-A correction lands in whatever change was in flight, which is often a change whose stated scope does not cover it. Say so where the work is reviewed: the PR body's Callouts, or the closing report when the run delivers no PR (see: @lab43/q conventions/pull-requests.md, Sections). A reviewer who meets an unexplained edit to standing law reads it as scope creep.
+A correction lands in whatever change was in flight, which is often a change whose stated scope does not cover it. Say so where the work is reviewed: the PR body, or the closing report when the run delivers no PR (see: @lab43/q conventions/pull-requests.md, Body). A reviewer who meets an unexplained edit to standing law reads it as scope creep.
 
 Amendments to existing rules are corrections too. Apply them rather than recommending them. A recommendation the user has to find in the output gets scanned past, while a diff hunk is something they can read and push back on. Raise an amendment instead of applying it when it would put existing code out of conformance: that is a migration, and its scope is the user's.
 
@@ -136,3 +136,49 @@ Wait for every reviewer in the round to report before changing anything. Editing
 The procedure a run in local mode follows at each review point the skill defines. Stop and ask the user to review the uncommitted work: the diff, its check results, and anything else they should weigh. When the work reached the gate without a round (see: Validation), ask in the same stop whether to run the round before committing. A round they ask for runs with the prompt Validation prescribes, and its fixes join the diff for them to review again. Expect change requests. Make them and iterate with the user, running no machinery per exchange. A change request whose reason binds future work is a correction (see: Corrections become rules).
 
 At their go-ahead, commit exactly what they reviewed — onto the work's branch, unless the skill names another target. Then run the checks covering what the session changed. When the gate's iteration substantially changed the work, run one `adversarial-reviewer` pass (both lenses) over what changed, with the prompt Validation prescribes (see: Validation). Never fold the resulting fixes into the reviewed commit. Leave them uncommitted and return to the gate, where the user reviews them as their own diff. Repeat until a go-ahead leaves nothing uncommitted.
+
+## Opening a PR
+
+Check whether the project's PRs open as drafts first (see: Draft pull requests).
+
+Open the PR with `gh pr create` when `gh repo view` succeeds: the GitHub CLI is installed, authenticated, and signed in to the host `origin` lives on. Otherwise, push the branch and hand the user what they need to open the PR themselves:
+
+- The compare URL, which opens GitHub's new-PR form: `https://<host>/<owner>/<repo>/compare/<base>...<branch>?expand=1`, with the host, owner, and repo read from `origin`. When `origin` is not on GitHub, name the branch instead.
+- The drafted title and body, in a fenced block so they paste as written.
+- The local path of each screenshot and recording, for the user to drag into the body (see: @lab43/q conventions/pull-requests.md, Screenshots and recordings).
+
+Wherever a run reports a PR's URL, the compare URL stands in for a PR the user opens.
+
+Attach each screenshot and recording with `--attach` on `gh pr create` or `gh pr edit`. Reference the file's local path where it belongs in the body, and `gh` replaces the path with the uploaded file's URL. The flag needs `gh` 2.99 or later. On an older `gh`, the user attaches them, as without `gh`.
+
+## Comments on a PR
+
+A run that opens a PR through `gh` also posts its notes about specific changes on the diff, so the reviewer meets each in place. A note about one change, such as why it was made or why a choice that looks wrong is deliberate, goes on that change's line as well as in the body. A note not tied to a line stays in the body alone. Give the comment only what a reader needs to understand why that change was made. The anchor already says where and what, so add no labels and no framing. Without `gh`, post none: they go through GitHub's API, which q reaches only through `gh`.
+
+Post each on its line of the PR's head commit, once the PR is open: `gh pr create` and `gh pr edit` can't post them. Write the comment to a file and pass it by path, so apostrophes in the prose can't break the command:
+
+```bash
+gh api --method POST repos/<owner>/<repo>/pulls/<n>/comments -F body=@<comment-file> -f commit_id=<head-sha> -f path=<path> -F line=<line>
+```
+
+Sign each comment (see: Sign what a run posts).
+
+## Draft pull requests
+
+Open the PR as a draft when the project's root `package.json` declares it:
+
+```json
+"q": { "draftPullRequests": true }
+```
+
+A team sets it so the author reviews the PR before anyone else does. Marking it ready is the author's signal that the team's review can start, so leave the PR a draft. When the run hands the user a compare URL instead of opening the PR, tell them to open it as a draft.
+
+## Sign what a run posts
+
+Text posted under the user's account reads as the user's. Sign everything a run posts, once, with "— Claude 🤖" on its own line at the end:
+
+- a comment or reply on a pull request, on the diff or at the top level
+- an issue or tracker item it files
+- a comment it posts on an issue or tracker item
+
+A pull request's body carries no signature. Text committed to the repo is not a message and carries none either: git history records who wrote it.

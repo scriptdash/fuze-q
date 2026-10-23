@@ -61,4 +61,4 @@ Make the change directly, following the documentation policy (see: @lab43/q conv
 
 ## Step 4: Report
 
-Report what you exercised and what it demonstrated, claim by claim, with the path to each capture — the evidence a PR's Testing section carries (source: @lab43/q conventions/pull-requests.md, Sections). Name what changed in the manual, and say whether that change is still uncommitted. Name anything you waited on, and how long it held you. Report what failed and stop there.
+Report what you exercised and what it demonstrated, claim by claim, with the path to each capture — the evidence a PR body carries (source: @lab43/q conventions/pull-requests.md, Body). Name what changed in the manual, and say whether that change is still uncommitted. Name anything you waited on, and how long it held you. Report what failed and stop there.
