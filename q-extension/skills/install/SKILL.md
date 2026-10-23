@@ -16,7 +16,7 @@ Hold the project against each of Step 3's scaffold items, noting what is absent 
 - Convention-like docs living elsewhere — a `docs/` scan for rule-carrying files, a briefing bloated with per-task rules
 - Content already in `q-docs/conventions/` that has drifted from the documentation policy
 - Whether an earlier run's scaffold sits uncommitted in the working tree
-- The GitHub CLI: `gh repo view`. It is optional: with it, q's skills open PRs themselves, and without it they hand the user a compare URL and the drafted body (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Opening a PR).
+- A GitHub integration: `gh`, when `gh repo view` succeeds, or a GitHub MCP server among the session's tools. It is optional: with one, q's skills open PRs and post on them themselves, and without one they hand the user a compare URL and the drafted body (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, GitHub integrations).
 
 ## Step 2: Settle delivery
 
@@ -57,7 +57,7 @@ The invocation is the agreement — scaffold autonomously; on a fully set-up, un
 
    The marketplace needs a name no other project on the machine will use. The registry the CLI resolves against holds one entry per marketplace name, machine-wide (source: ${CLAUDE_PLUGIN_ROOT}/references/enforce-declarations.md). Two projects sharing a name means the second one loads another project's q rather than its own.
 
-   Name it `q-pin-<owner>-<repo>-<suffix>` — for example, `q-pin-acme-storefront-4f2ab9`. Owner and repo keep the name legible in that registry. The suffix is six random hex characters. It is what keeps the name unique. Read owner and repo from the repo's GitHub origin with `gh repo view --json nameWithOwner`. Use the project directory's name in their place when that command yields nothing. Lowercase the whole name and replace every character outside `a-z0-9-` with a hyphen.
+   Name it `q-pin-<owner>-<repo>-<suffix>` — for example, `q-pin-acme-storefront-4f2ab9`. Owner and repo keep the name legible in that registry. The suffix is six random hex characters. It is what keeps the name unique. Read owner and repo from the `origin` remote's URL (`git remote get-url origin`) when it is on GitHub: the two path segments after the host (after the colon in the `git@github.com:<owner>/<repo>.git` form), with any `.git` dropped. Use the project directory's name in their place when there is no such `origin`. Lowercase the whole name and replace every character outside `a-z0-9-` with a hyphen.
 
    Generate that name only when creating the file. A project that already records one keeps it, whatever it is. Other clones have already registered that name locally. Regenerating it strands them.
 
@@ -128,7 +128,7 @@ Close the session by reporting:
 
 - What was created.
 - What already existed and was left untouched.
-- The GitHub CLI result. When it is missing or unauthenticated, say what it would add and how to get it: install via <https://cli.github.com>, authenticate with `gh auth login`.
+- Which GitHub integration the session has. When it has none, say what one would add and how to get one: install the GitHub CLI via <https://cli.github.com> and authenticate with `gh auth login`.
 - Each shipped plugin left without a marketplace entry, and why.
 - Convention-like content Step 1 found outside `q-docs/conventions/` — migration candidates this run leaves alone. Moving a project's existing docs is its own delivery: suggest `/q:create-plan` for a docs tree, or `/q:implement` for a handful of rules.
 - Content already in `q-docs/conventions/` that has drifted from the documentation policy — grooming's territory: suggest `/q:groom-docs`.

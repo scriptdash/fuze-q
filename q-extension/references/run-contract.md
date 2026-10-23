@@ -137,11 +137,17 @@ The procedure a run in local mode follows at each review point the skill defines
 
 At their go-ahead, commit exactly what they reviewed — onto the work's branch, unless the skill names another target. Then run the checks covering what the session changed. When the gate's iteration substantially changed the work, run one `adversarial-reviewer` pass (both lenses) over what changed, with the prompt Validation prescribes (see: Validation). Never fold the resulting fixes into the reviewed commit. Leave them uncommitted and return to the gate, where the user reviews them as their own diff. Repeat until a go-ahead leaves nothing uncommitted.
 
+## GitHub integrations
+
+Do each GitHub operation through whatever integration the session has that can do it — opening a PR, posting a diff comment, reading an issue or a PR, forking a repo. The GitHub CLI is one: it can do an operation when `gh repo view` succeeds, meaning `gh` is installed, authenticated, and signed in to the host `origin` lives on. A GitHub MCP server is another: its tools appear in the session's tool list. Where the two overlap, either serves.
+
+The `gh` commands in q's skills are worked examples. With another integration, do what the command does through that integration's equivalent. Judge each operation on its own: an integration that opens PRs may still lack one a step needs, such as uploading an attachment or reading whether a review thread is resolved. Fall back to the manual steps a skill names, like handing the user a compare URL, only for an operation no integration in the session can do. A skill's "without an integration" means exactly that case.
+
 ## Opening a PR
 
 Check whether the project's PRs open as drafts first (see: Draft pull requests).
 
-Open the PR with `gh pr create` when `gh repo view` succeeds: the GitHub CLI is installed, authenticated, and signed in to the host `origin` lives on. Otherwise, push the branch and hand the user what they need to open the PR themselves:
+Open the PR through an integration that can (see: GitHub integrations) — with `gh`, `gh pr create`. Without one, push the branch and hand the user what they need to open the PR themselves:
 
 - The compare URL, which opens GitHub's new-PR form: `https://<host>/<owner>/<repo>/compare/<base>...<branch>?expand=1`, with the host, owner, and repo read from `origin`. When `origin` is not on GitHub, name the branch instead.
 - The drafted title and body, in a fenced block so they paste as written.
@@ -149,13 +155,13 @@ Open the PR with `gh pr create` when `gh repo view` succeeds: the GitHub CLI is 
 
 Wherever a run reports a PR's URL, the compare URL stands in for a PR the user opens.
 
-Attach each screenshot and recording with `--attach` on `gh pr create` or `gh pr edit`. Reference the file's local path where it belongs in the body, and `gh` replaces the path with the uploaded file's URL. The flag needs `gh` 2.99 or later. On an older `gh`, the user attaches them, as without `gh`.
+Attach each screenshot and recording with `--attach` on `gh pr create` or `gh pr edit`. Reference the file's local path where it belongs in the body, and `gh` replaces the path with the uploaded file's URL. The flag needs `gh` 2.99 or later. With an older `gh`, or an integration that cannot upload files, the PR opens through the integration and the user attaches them, handed each file's local path.
 
 ## Comments on a PR
 
-A run that opens a PR through `gh` also posts its notes about specific changes on the diff, so the reviewer meets each in place. A note about one change, such as why it was made or why a choice that looks wrong is deliberate, goes on that change's line as well as in the body. A note not tied to a line stays in the body alone. Give the comment only what a reader needs to understand why that change was made. The anchor already says where and what, so add no labels and no framing. Without `gh`, post none: they go through GitHub's API, which q reaches only through `gh`.
+A run that opens a PR through an integration also posts its notes about specific changes on the diff, so the reviewer meets each in place. A note about one change, such as why it was made or why a choice that looks wrong is deliberate, goes on that change's line as well as in the body. A note not tied to a line stays in the body alone. Give the comment only what a reader needs to understand why that change was made. The anchor already says where and what, so add no labels and no framing. Without an integration that can post them, post none.
 
-Post each on its line of the PR's head commit, once the PR is open: `gh pr create` and `gh pr edit` can't post them. Write the comment to a file and pass it by path, so apostrophes in the prose can't break the command:
+Post each on its line of the PR's head commit, once the PR is open. With `gh`, `gh pr create` and `gh pr edit` can't post them, so go through the API. Write the comment to a file and pass it by path, so apostrophes in the prose can't break the command:
 
 ```bash
 gh api --method POST repos/<owner>/<repo>/pulls/<n>/comments -F body=@<comment-file> -f commit_id=<head-sha> -f path=<path> -F line=<line>
