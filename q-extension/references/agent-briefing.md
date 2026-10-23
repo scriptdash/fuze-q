@@ -1,6 +1,6 @@
 # Agent Briefing
 
-The shape of a project's agent briefing — `CLAUDE.md`. `/q:install` scaffolds it, `/q:update-docs` extends it, and `/q:groom-docs` checks it.
+The shape of a project's agent briefing — `CLAUDE.md`. `/q:install` scaffolds it, every change to an indexed doc keeps it current, and `/q:groom-docs` checks it.
 
 The documentation policy decides what the briefing must carry (see: @lab43/q conventions/documentation.md, Taxonomy). This file gives that a shape.
 

@@ -57,7 +57,7 @@ The manual is a set of directions, not a log. Where its instructions failed you,
 
 Create the manual when the project has none. Name it `q-docs/guides/driving-manual.md`, unless the project's own docs layout points somewhere else.
 
-Make the change through `/q:update-docs`. Deliver nothing here. The change joins the calling run's change, or waits uncommitted.
+Make the change directly, following the documentation policy (see: @lab43/q conventions/documentation.md). Deliver nothing here. The change joins the calling run's change, or waits uncommitted.
 
 ## Step 4: Report
 

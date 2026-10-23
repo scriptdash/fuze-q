@@ -23,7 +23,7 @@ Planned changes:
 1. [x] **Make the briefing skill-free.** The briefing template puts no skill's name in `CLAUDE.md`. They tell a session to read the indexed conventions before changing code or docs, and to keep docs accurate as it goes.
 2. [x] **Index only what a consuming repo needs.** The briefing indexes q's principles, writing, pull-request, and documentation conventions. Skills read the rest when they run.
 3. [x] **Retune skill descriptions.** No description presents its skill as the standard way to work, such as `/q:implement` calling itself "the expected entry point".
-4. [ ] **Remove `/q:update-docs`.** Sessions edit docs directly, following the documentation policy:
+4. [x] **Remove `/q:update-docs`.** Sessions edit docs directly, following the documentation policy:
    - Move the rule for keeping the briefing's index in sync into the documentation policy.
    - Point `/q:review`, `/q:drive`, `/q:implement-plan`, `/q:install`, and the run contract at the policy instead of the skill.
    - Doc edits travel with the work in progress rather than shipping as their own PR.
@@ -123,7 +123,7 @@ Everything q produces lives in plain text files in your repo.
 
 <!-- source: @lab43/q conventions/documentation.md, Taxonomy -->
 
-- **Conventions** (`q-docs/conventions/`) say how code here gets written. They start nearly empty, because conventions are earned as decisions are made, not pre-written. `/q:update-docs` records each decision as a rule, with one home per fact, placed where its next reader will look. Break a convention and the code is wrong.
+- **Conventions** (`q-docs/conventions/`) say how code here gets written. They start nearly empty, because conventions are earned as decisions are made, not pre-written. Sessions record each decision as a rule as it is made, with one home per fact, placed where its next reader will look. Break a convention and the code is wrong.
 - **Specs** (`q-docs/specs/`) say what a feature does. You write them on purpose, before the code or as a deliberate change to it. Break a spec and the product is wrong, unless you meant to change the promise, in which case the spec changes with it.
 - **Guides** (`q-docs/guides/`) say how to use and operate the product, such as how to deploy it.
 - **Plans** (`q-docs/plans/`) say how a feature will be built, phase by phase. `/q:create-plan` writes them with you, and `/q:implement-plan` carries them out. They stay in the repo after they ship.
@@ -169,7 +169,6 @@ From there:
 
 **Docs:**
 
-- `/q:update-docs` — Update the docs — record a lesson, fix a guide, update `CLAUDE.md`. Ships as its own PR, or stays in the working tree to go out with the work you're doing.
 - `/q:groom-docs` — Check all your docs against the code and q's documentation rules, and consolidate what has drifted.
 - `/q:upstream` — Turn problems with q's rules, and your overrides of them, into PRs against the repos that own the rules — q's own, or an extension's.
 
