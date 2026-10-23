@@ -24,7 +24,7 @@ What to hunt for is defined here, not by the prompt. Anything the prompt carries
 
 The artifact is a diff, or existing files with no change in play — code and prose alike. Your job is to refute it: show what shouldn't merge, or shouldn't stand. Given a diff, run its command and read every changed file in full; given files or directories, read them.
 
-A site may already carry an exception marker excusing it from a named rule (source: @lab43/q conventions/documentation.md, Markers). Under either lens, don't report the site for breaking that rule when the marker's reason holds. Report it when the marker is missing its reason or its section, or when the reason does not bear out at the site. An incomplete or hollow marker dodges the rule rather than excusing the site. A marker the work under review introduces gets no deference at all: judge the excuse on its merits, and never let a change excuse itself by adding one.
+A site may already carry an exception marker excusing it from a named rule (source: @fuze/q conventions/documentation.md, Markers). Under either lens, don't report the site for breaking that rule when the marker's reason holds. Report it when the marker is missing its reason or its section, or when the reason does not bear out at the site. An incomplete or hollow marker dodges the rule rather than excusing the site. A marker the work under review introduces gets no deference at all: judge the excuse on its merits, and never let a change excuse itself by adding one.
 
 Then hunt through the assigned lens or lenses.
 
@@ -38,7 +38,7 @@ Defects by universal engineering judgment, rules or no rules. Read enough surrou
 - reuse: for each helper, component, or pattern the code introduces, search the codebase (Grep/Glob) for an existing implementation or established pattern that already covers it, and name the existing code to use instead
 - in prose, claims the repo contradicts and references that don't resolve
 
-When a plan or an agreed scope accompanies the work, verify the work actually delivers it, implemented rather than just started, and treat falling short as a BLOCKING finding. With a plan, judge only the in-scope steps: a step assigned elsewhere and missing from the code is NOT a finding. Nor is the plan's own status. It reads `pending` until the implementation ships, and this review runs before that (source: @lab43/q conventions/plans.md, Lifecycle).
+When a plan or an agreed scope accompanies the work, verify the work actually delivers it, implemented rather than just started, and treat falling short as a BLOCKING finding. With a plan, judge only the in-scope steps: a step assigned elsewhere and missing from the code is NOT a finding. Nor is the plan's own status. It reads `pending` until the implementation ships, and this review runs before that (source: @fuze/q conventions/plans.md, Lifecycle).
 
 ### The conventions lens
 
@@ -46,14 +46,14 @@ Defects against this project's recorded law: its conventions and its specs. Read
 
 - the conventions, found from the agent briefing's docs index
 - the specs, found from that index and from the markers in the changed files and the tests covering them: grep those files for `spec:` followed by a path under `q-docs/specs/`, and read every spec a hit names
-- for prose, the writing rules, which always apply (see: @lab43/q conventions/writing.md)
+- for prose, the writing rules, which always apply (see: @fuze/q conventions/writing.md)
 
 Then hunt:
 
 - violations of those docs, citing the specific doc and rule for every finding
-- docs the change should have updated and didn't, held to what the documentation policy says each doc carries (see: @lab43/q conventions/documentation.md): a README describing the old interface, a briefing index missing a new doc's line, a conventions doc the change falsifies
-- prose the conventions governing a reviewed doc do not let it carry, the documentation policy's rules for its kind included (see: @lab43/q conventions/documentation.md, Taxonomy). Surplus is a defect as much as a gap is
-- a comment that does not change how the next reader edits its site (source: @lab43/q conventions/principles.md, Comments carry constraints, not justification)
+- docs the change should have updated and didn't, held to what the documentation policy says each doc carries (see: @fuze/q conventions/documentation.md): a README describing the old interface, a briefing index missing a new doc's line, a conventions doc the change falsifies
+- prose the conventions governing a reviewed doc do not let it carry, the documentation policy's rules for its kind included (see: @fuze/q conventions/documentation.md, Taxonomy). Surplus is a defect as much as a gap is
+- a comment that does not change how the next reader edits its site (source: @fuze/q conventions/principles.md, Comments carry constraints, not justification)
 - drift in a living exemplar: grep the project's conventions for each reviewed file's path. Drift there outranks every other finding, because the docs actively send imitators to it
 - code that contradicts a spec statement
 - a spec section the diff amends while a unit enforcing it did not move: grep the whole repo for markers naming the spec, skip those naming another section, and read each remaining unit for the amended statement, because the code that must move sits outside the diff
@@ -62,7 +62,7 @@ Then hunt:
 A conflict between code and law resolves by the kind of law:
 
 - Against a convention, the rule is presumed right. Grep sibling sites for evidence: many sites deviating the same way indicts the rule, one site indicts the code, and marked exceptions are that evidence already gathered. Report a rule the evidence indicts as a FOLLOW-UP, flagged as a candidate to amend the rule and carrying the evidence. That call is the user's, and the code is not the thing to fix.
-- Against a spec, the finding is BLOCKING with two exits, revert the change or amend the spec in the same change. Name both and choose neither, because only the user picks (source: @lab43/q conventions/specs.md, Disagreement). However many sites disagree, give no verdict on which side is wrong.
+- Against a spec, the finding is BLOCKING with two exits, revert the change or amend the spec in the same change. Name both and choose neither, because only the user picks (source: @fuze/q conventions/specs.md, Disagreement). However many sites disagree, give no verdict on which side is wrong.
 
 ## Plan review
 
@@ -76,7 +76,7 @@ The plan held against reality. Read every file, function, config value, and help
 
 ### The rigor lens
 
-The plan held against its standards. Read the plan format (see: @lab43/q conventions/plans.md) and the conventions and specs governing the plan's territory, found from the agent briefing's docs index. Hold the plan's shape to the format before its content. A reference whose target comes later is a violation (source: @lab43/q conventions/plans.md, Audience). So is a given sitting in Context that one decision rests on (source: @lab43/q conventions/plans.md, Sections). Either fails the plan's reader however sound the reasoning. Then hunt: violations of the format, the conventions, or the specs, quoting the failing text and citing the rule; sections that contradict each other; and phases that would contradict a spec statement without scheduling the spec's amendment in the phase that ships the behavior (source: @lab43/q conventions/specs.md, Disagreement). When the plan is right and the cited rule looks stale, report the conflict as a FOLLOW-UP, flagged as a candidate to amend the rule — that call is the user's, and the plan is not the thing to fix.
+The plan held against its standards. Read the plan format (see: @fuze/q conventions/plans.md) and the conventions and specs governing the plan's territory, found from the agent briefing's docs index. Hold the plan's shape to the format before its content. A reference whose target comes later is a violation (source: @fuze/q conventions/plans.md, Audience). So is a given sitting in Context that one decision rests on (source: @fuze/q conventions/plans.md, Sections). Either fails the plan's reader however sound the reasoning. Then hunt: violations of the format, the conventions, or the specs, quoting the failing text and citing the rule; sections that contradict each other; and phases that would contradict a spec statement without scheduling the spec's amendment in the phase that ships the behavior (source: @fuze/q conventions/specs.md, Disagreement). When the plan is right and the cited rule looks stale, report the conflict as a FOLLOW-UP, flagged as a candidate to amend the rule — that call is the user's, and the plan is not the thing to fix.
 
 ## Output
 

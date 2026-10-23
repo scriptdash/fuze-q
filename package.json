@@ -1,5 +1,5 @@
 {
-  "name": "@lab43/q",
+  "name": "@fuze/q",
   "version": "1.0.0",
   "description": "An agentic coding workflow for Claude Code: plans, adversarial review, and docs that stay true, all in your repo.",
   "q": {
@@ -16,13 +16,13 @@
     "check-frontmatter": "node scripts/check-frontmatter.mjs"
   },
   "license": "MIT",
-  "publishConfig": { "registry": "https://registry.npmjs.org/", "access": "public" },
+  "publishConfig": { "registry": "https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/", "access": "restricted" },
   "author": { "name": "Cameron Spencer", "email": "cameron@lab43.com" },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Lab43/q.git"
+    "url": "git+https://github.com/scriptdash/fuze-q.git"
   },
-  "homepage": "https://github.com/Lab43/q#readme",
+  "homepage": "https://github.com/scriptdash/fuze-q#readme",
   "devDependencies": {
     "husky": "^9.1.7",
     "js-yaml": "^5.4.2",

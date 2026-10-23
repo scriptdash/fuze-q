@@ -4,11 +4,11 @@ Rules for writing q's docs — the framework payload and this repo's own.
 
 ## Working on the payload
 
-q is the framework, so the extension format does not reach it. The authoring rules an extension follows still govern this repo's payload, by this ruling (see: @lab43/q conventions/extensions.md, Authoring). The two homes a rule written here can go to, and the test deciding between them, are that same shipped law (see: @lab43/q conventions/extensions.md, Which rules ship).
+q is the framework, so the extension format does not reach it. The authoring rules an extension follows still govern this repo's payload, by this ruling (see: @fuze/q conventions/extensions.md, Authoring). The two homes a rule written here can go to, and the test deciding between them, are that same shipped law (see: @fuze/q conventions/extensions.md, Which rules ship).
 
-In this repo, `@lab43/q` in a path reference resolves to `q-extension/`, q's own payload working tree (source: @lab43/q conventions/documentation.md, Package doc paths). That is the directory every extension puts its payload in (source: @lab43/q conventions/extensions.md, Layout). The name is mildly wrong here, since q is not an extension. Keep it anyway: a name true of q alone would cost a permanent carve-out in every rule and check that resolves a package's payload path.
+In this repo, `@fuze/q` in a path reference resolves to `q-extension/`, q's own payload working tree (source: @fuze/q conventions/documentation.md, Package doc paths). That is the directory every extension puts its payload in (source: @fuze/q conventions/extensions.md, Layout). The name is mildly wrong here, since q is not an extension. Keep it anyway: a name true of q alone would cost a permanent carve-out in every rule and check that resolves a package's payload path.
 
-The payload joins this project's documentation surface. `q-extension/conventions/` gets the full checks, like `q-docs/conventions/`. `q-extension/references/` is not conventions law (source: q-docs/conventions/skills.md, Body), so it gets guide mode instead (see: @lab43/q conventions/documentation.md, Taxonomy).
+The payload joins this project's documentation surface. `q-extension/conventions/` gets the full checks, like `q-docs/conventions/`. `q-extension/references/` is not conventions law (source: q-docs/conventions/skills.md, Body), so it gets guide mode instead (see: @fuze/q conventions/documentation.md, Taxonomy).
 
 Rejected: seeding the framework tier into consuming projects as editable copies (seed-and-fork) — that loses the update channel and makes framework law indistinguishable from project choice during grooming.
 

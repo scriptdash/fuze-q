@@ -26,7 +26,7 @@ Once a concept has an established name, use exactly that name everywhere. A syno
 
 Check whether a plainer word would do before a name becomes established (see: Plain words).
 
-Rejected: a glossary — it either duplicates the definitions the home docs already carry, or becomes the central registry of shared facts the documentation policy rejects (source: @lab43/q conventions/documentation.md, Single source of truth).
+Rejected: a glossary — it either duplicates the definitions the home docs already carry, or becomes the central registry of shared facts the documentation policy rejects (source: @fuze/q conventions/documentation.md, Single source of truth).
 
 ## Instructions are commands
 

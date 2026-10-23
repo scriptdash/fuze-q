@@ -7,7 +7,7 @@ How every q skill run operates, from invocation to finish. Skills reference this
 A run is in one of two modes, depending on whether the user has agreed on what to do yet:
 
 - **Conversational** — nothing agreed yet: converge with the user. Present candidates with trade-offs and a recommendation, decide at the right altitude (see: Decide at the right altitude), and proceed to execution only on the user's go-ahead. The conversation ends in an agreement — a plan doc, a confirmed scope, a converged approach.
-- **Autonomous** — an agreement exists: execute it without asking. Interrupt only when the work would step outside what was agreed — a conflict discovered mid-run, an architectural fork, scope the agreement doesn't cover. Small calls inside the agreement stay autonomous: choose what is most consistent with the agreement, the conventions, and the surrounding code, and flag the calls a reviewer would question where the output gets reviewed: the PR body (see: @lab43/q conventions/pull-requests.md), or the end-of-run report when the run delivers no PR. When the agreement is exhausted or must be reopened, the run is conversational again.
+- **Autonomous** — an agreement exists: execute it without asking. Interrupt only when the work would step outside what was agreed — a conflict discovered mid-run, an architectural fork, scope the agreement doesn't cover. Small calls inside the agreement stay autonomous: choose what is most consistent with the agreement, the conventions, and the surrounding code, and flag the calls a reviewer would question where the output gets reviewed: the PR body (see: @fuze/q conventions/pull-requests.md), or the end-of-run report when the run delivers no PR. When the agreement is exhausted or must be reopened, the run is conversational again.
 
 ## Review modes
 
@@ -115,11 +115,11 @@ Every run turns up documentation the project doesn't have yet. Record it as it s
 - a rule nobody wrote down
 - a correction the user made whose reason binds future work
 
-Record each one directly, in the doc the documentation policy assigns it (see: @lab43/q conventions/documentation.md, Taxonomy). A rule is held to the principles (see: @lab43/q conventions/principles.md) and the conventions rules (see: @lab43/q conventions/conventions.md) before it lands.
+Record each one directly, in the doc the documentation policy assigns it (see: @fuze/q conventions/documentation.md, Taxonomy). A rule is held to the principles (see: @fuze/q conventions/principles.md) and the conventions rules (see: @fuze/q conventions/conventions.md) before it lands.
 
 Record a correction in the change that prompted it. The diff at each review point carries its own doc updates, so a user approving the work sees everything the run proposes. A correction that arrives during review joins that iteration. Never defer one to the closing report, and never leave the user trusting that a doc update will follow.
 
-A correction lands in whatever change was in flight, which is often a change whose stated scope does not cover it. Say so where the work is reviewed: the PR body, or the closing report when the run delivers no PR (see: @lab43/q conventions/pull-requests.md, Body). A reviewer who meets an unexplained edit to standing law reads it as scope creep.
+A correction lands in whatever change was in flight, which is often a change whose stated scope does not cover it. Say so where the work is reviewed: the PR body, or the closing report when the run delivers no PR (see: @fuze/q conventions/pull-requests.md, Body). A reviewer who meets an unexplained edit to standing law reads it as scope creep.
 
 Amendments to existing rules are corrections too. Apply them rather than recommending them. A recommendation the user has to find in the output gets scanned past, while a diff hunk is something they can read and push back on. Raise an amendment instead of applying it when it would put existing code out of conformance: that is a migration, and its scope is the user's.
 
@@ -129,7 +129,7 @@ Execution closes by validating what the run delivers, before it is delivered. Va
 
 Run the project's checks covering what changed. Then launch `adversarial-reviewer` subagents over the change, sized to it: one reviewer carrying both lenses for a small change, and two in parallel, one per lens, for anything larger. Hand each its lens, the artifact the skill names, and what the work is meant to deliver: the scope the user agreed to, restated from the run's current state, or the plan plus which of its steps are in scope, which came earlier, and which are deferred. That is the whole prompt. Never add a hunt-list, a checklist, or an account of what changed. A list steers the review toward what the caller listed, and nothing marks the round as compromised. An account of what changed carries details the user has since overruled, which resurface as false findings.
 
-Wait for every reviewer in the round to report before changing anything. Editing the tree under a running review invalidates the diff that review was handed. Then fix the BLOCKING findings, applying judgment on nits. Re-run the checks covering the fixes. Review again — fixes are always re-reviewed, with the same reviewers by default. Size the round to the fixes: small fixes take one reviewer carrying both lenses, whatever the first round took. In ship mode, commit each round. Loop at most three times. The loop exits when no reviewer reports a BLOCKING finding, and findings that survive the cap are reported as caveats. A spec violation is the exception on both counts. Its two exits are the user's to pick, so it is neither fixed on the run's judgment nor carried as a caveat: the run stops for the ruling (source: @lab43/q conventions/specs.md, Disagreement).
+Wait for every reviewer in the round to report before changing anything. Editing the tree under a running review invalidates the diff that review was handed. Then fix the BLOCKING findings, applying judgment on nits. Re-run the checks covering the fixes. Review again — fixes are always re-reviewed, with the same reviewers by default. Size the round to the fixes: small fixes take one reviewer carrying both lenses, whatever the first round took. In ship mode, commit each round. Loop at most three times. The loop exits when no reviewer reports a BLOCKING finding, and findings that survive the cap are reported as caveats. A spec violation is the exception on both counts. Its two exits are the user's to pick, so it is neither fixed on the run's judgment nor carried as a caveat: the run stops for the ruling (source: @fuze/q conventions/specs.md, Disagreement).
 
 ## The local gate
 
@@ -145,7 +145,7 @@ Open the PR with `gh pr create` when `gh repo view` succeeds: the GitHub CLI is 
 
 - The compare URL, which opens GitHub's new-PR form: `https://<host>/<owner>/<repo>/compare/<base>...<branch>?expand=1`, with the host, owner, and repo read from `origin`. When `origin` is not on GitHub, name the branch instead.
 - The drafted title and body, in a fenced block so they paste as written.
-- The local path of each screenshot and recording, for the user to drag into the body (see: @lab43/q conventions/pull-requests.md, Screenshots and recordings).
+- The local path of each screenshot and recording, for the user to drag into the body (see: @fuze/q conventions/pull-requests.md, Screenshots and recordings).
 
 Wherever a run reports a PR's URL, the compare URL stands in for a PR the user opens.
 

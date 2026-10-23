@@ -33,10 +33,10 @@ const lockOf = (versions) =>
 
 /** A project where locked, loaded, installed and watermarked all agree. */
 const agreeing = (overrides = {}) => ({
-  "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN } }),
-  "package-lock.json": lockOf({ "@lab43/q": PIN }),
-  ".claude/q-state.json": JSON.stringify({ reconciledAgainst: { "@lab43/q": PIN } }),
-  [`node_modules/@lab43/q/package.json`]: JSON.stringify({ version: PIN }),
+  "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN } }),
+  "package-lock.json": lockOf({ "@fuze/q": PIN }),
+  ".claude/q-state.json": JSON.stringify({ reconciledAgainst: { "@fuze/q": PIN } }),
+  [`node_modules/@fuze/q/package.json`]: JSON.stringify({ version: PIN }),
   ...overrides,
 });
 
@@ -71,7 +71,7 @@ describe("designed silences", () => {
     assertSilent(runHook(stageHook()));
   });
 
-  it("is silent when package.json declares no @lab43/q devDependency", () => {
+  it("is silent when package.json declares no @fuze/q devDependency", () => {
     const staged = stageHook({ project: { "package.json": '{"devDependencies":{"other":"1.0.0"}}' } });
     assertSilent(runHook(staged));
   });
@@ -85,21 +85,21 @@ describe("designed silences", () => {
   it("is silent with a ranged pin when the lockfile and watermark agree", () => {
     const staged = stageHook({
       project: agreeing({
-        "package.json": JSON.stringify({ devDependencies: { "@lab43/q": "^1.0.0" } }),
+        "package.json": JSON.stringify({ devDependencies: { "@fuze/q": "^1.0.0" } }),
       }),
     });
     assertSilent(runHook(staged));
   });
 
   it("is silent when q appears only as a value, as in q's own manifest", () => {
-    const staged = stageHook({ project: { "package.json": '{"name":"@lab43/q","version":"1.0.0"}' } });
+    const staged = stageHook({ project: { "package.json": '{"name":"@fuze/q","version":"1.0.0"}' } });
     assertSilent(runHook(staged));
   });
 
   it("is silent for an unwatermarked devDependency whose manifest is absent", () => {
     const staged = stageHook({
       project: agreeing({
-        "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN, mystery: "2.0.0" } }),
+        "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN, mystery: "2.0.0" } }),
       }),
     });
     assertSilent(runHook(staged));
@@ -108,7 +108,7 @@ describe("designed silences", () => {
   it("is silent for an unwatermarked devDependency lacking the q-extension keyword", () => {
     const staged = stageHook({
       project: agreeing({
-        "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN, plain: "2.0.0" } }),
+        "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN, plain: "2.0.0" } }),
         "node_modules/plain/package.json": JSON.stringify({ version: "2.0.0", keywords: ["other"] }),
       }),
     });
@@ -118,7 +118,7 @@ describe("designed silences", () => {
   it("is silent for an unwatermarked devDependency whose manifest is unparseable", () => {
     const staged = stageHook({
       project: agreeing({
-        "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN, broken: "2.0.0" } }),
+        "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN, broken: "2.0.0" } }),
         "node_modules/broken/package.json": "{ not json",
       }),
     });
@@ -129,7 +129,7 @@ describe("designed silences", () => {
 describe("the project manifest", () => {
   it("is loud when package.json is invalid JSON", () => {
     // The wrapper's grep still matches the pin's text, so it falls through.
-    const staged = stageHook({ project: { "package.json": '{"devDependencies":{"@lab43/q":"1.0.0"' } });
+    const staged = stageHook({ project: { "package.json": '{"devDependencies":{"@fuze/q":"1.0.0"' } });
     assertLoud(runHook(staged));
   });
 
@@ -138,16 +138,16 @@ describe("the project manifest", () => {
   // versions around it look.
   it("is loud when q's manifest entry is not a string", () => {
     const staged = stageHook({
-      project: agreeing({ "package.json": '{"devDependencies":{"@lab43/q":true}}' }),
+      project: agreeing({ "package.json": '{"devDependencies":{"@fuze/q":true}}' }),
     });
     assertLoud(runHook(staged));
   });
 
   it("is silent when q is a plain dependency rather than a devDependency", () => {
-    // The wrapper's grep matches @lab43/q in key position wherever it sits, so
+    // The wrapper's grep matches @fuze/q in key position wherever it sits, so
     // this reaches the node script, which drops it for not being a
     // devDependency. Nothing else stages that pass-through.
-    const staged = stageHook({ project: { "package.json": '{"dependencies":{"@lab43/q":"1.0.0"}}' } });
+    const staged = stageHook({ project: { "package.json": '{"dependencies":{"@fuze/q":"1.0.0"}}' } });
     assertSilent(runHook(staged));
   });
 
@@ -185,7 +185,7 @@ describe("the loaded plugin", () => {
   });
 
   it("is loud when the package manifest names no version", () => {
-    const staged = stageHook({ project: agreeing(), packageManifest: '{"name":"@lab43/q"}' });
+    const staged = stageHook({ project: agreeing(), packageManifest: '{"name":"@fuze/q"}' });
     assertLoud(runHook(staged));
   });
 
@@ -199,13 +199,13 @@ describe("the loaded plugin", () => {
   // CLAUDE_PLUGIN_ROOT names, and the cases above leave it agreeing.
   it("is loud when the project's installed q differs from the lockfile's", () => {
     const staged = stageHook({
-      project: agreeing({ "node_modules/@lab43/q/package.json": JSON.stringify({ version: "0.9.0" }) }),
+      project: agreeing({ "node_modules/@fuze/q/package.json": JSON.stringify({ version: "0.9.0" }) }),
     });
     assertLoud(runHook(staged));
   });
 
   it("is loud when q is declared and watermarked but not installed in the project", () => {
-    const staged = stageHook({ project: agreeing({ "node_modules/@lab43/q/package.json": null }) });
+    const staged = stageHook({ project: agreeing({ "node_modules/@fuze/q/package.json": null }) });
     assertLoud(runHook(staged));
   });
 
@@ -286,7 +286,7 @@ describe("the state file", () => {
 
   it("is loud when a watermark is not a version string", () => {
     const staged = stageHook({
-      project: agreeing({ ".claude/q-state.json": '{"reconciledAgainst":{"@lab43/q":42}}' }),
+      project: agreeing({ ".claude/q-state.json": '{"reconciledAgainst":{"@fuze/q":42}}' }),
     });
     assertLoud(runHook(staged));
   });
@@ -295,10 +295,10 @@ describe("the state file", () => {
 describe("watermarked extensions", () => {
   const withExt = (overrides) =>
     agreeing({
-      "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN, "@acme/ext": "2.0.0" } }),
-      "package-lock.json": lockOf({ "@lab43/q": PIN, "@acme/ext": "2.0.0" }),
+      "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN, "@acme/ext": "2.0.0" } }),
+      "package-lock.json": lockOf({ "@fuze/q": PIN, "@acme/ext": "2.0.0" }),
       ".claude/q-state.json": JSON.stringify({
-        reconciledAgainst: { "@lab43/q": PIN, "@acme/ext": "2.0.0" },
+        reconciledAgainst: { "@fuze/q": PIN, "@acme/ext": "2.0.0" },
       }),
       ...installedExt(),
       ...overrides,
@@ -310,7 +310,7 @@ describe("watermarked extensions", () => {
 
   it("is loud when a watermarked extension is in neither dependency map", () => {
     const staged = stageHook({
-      project: withExt({ "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN } }) }),
+      project: withExt({ "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN } }) }),
     });
     assertLoud(runHook(staged));
   });
@@ -320,7 +320,7 @@ describe("watermarked extensions", () => {
     const staged = stageHook({
       project: withExt({
         "package.json": JSON.stringify({
-          devDependencies: { "@lab43/q": PIN, "@acme/ext": { bad: true } },
+          devDependencies: { "@fuze/q": PIN, "@acme/ext": { bad: true } },
         }),
       }),
     });
@@ -329,7 +329,7 @@ describe("watermarked extensions", () => {
 
   it("is loud when the lockfile cannot resolve a watermarked extension", () => {
     const staged = stageHook({
-      project: withExt({ "package-lock.json": lockOf({ "@lab43/q": PIN }) }),
+      project: withExt({ "package-lock.json": lockOf({ "@fuze/q": PIN }) }),
     });
     assertLoud(runHook(staged));
   });
@@ -338,7 +338,7 @@ describe("watermarked extensions", () => {
   // the shape an unreconciled move arrives in — node_modules not yet caught up.
   it("is loud when the lockfile moved off the watermark and node_modules is untouched", () => {
     const staged = stageHook({
-      project: withExt({ "package-lock.json": lockOf({ "@lab43/q": PIN, "@acme/ext": "3.0.0" }) }),
+      project: withExt({ "package-lock.json": lockOf({ "@fuze/q": PIN, "@acme/ext": "3.0.0" }) }),
     });
     assertLoud(runHook(staged));
   });
@@ -348,7 +348,7 @@ describe("watermarked extensions", () => {
   it("is loud when the lockfile and node_modules moved but the watermark did not", () => {
     const staged = stageHook({
       project: withExt({
-        "package-lock.json": lockOf({ "@lab43/q": PIN, "@acme/ext": "3.0.0" }),
+        "package-lock.json": lockOf({ "@fuze/q": PIN, "@acme/ext": "3.0.0" }),
         "node_modules/@acme/ext/package.json": JSON.stringify({
           version: "3.0.0",
           keywords: ["q-extension"],
@@ -375,7 +375,7 @@ describe("watermarked extensions", () => {
   it("is loud when a q-extension devDependency carries no watermark", () => {
     const staged = stageHook({
       project: agreeing({
-        "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN, "@acme/ext": "2.0.0" } }),
+        "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN, "@acme/ext": "2.0.0" } }),
         ...installedExt(),
       }),
     });
@@ -388,7 +388,7 @@ describe("watermarked extensions", () => {
     const staged = stageHook({
       project: agreeing({
         "package.json": JSON.stringify({
-          devDependencies: { "@lab43/q": PIN },
+          devDependencies: { "@fuze/q": PIN },
           dependencies: { "@acme/ext": "2.0.0" },
         }),
         ...installedExt(),
@@ -401,12 +401,12 @@ describe("watermarked extensions", () => {
     const staged = stageHook({
       project: agreeing({
         "package.json": JSON.stringify({
-          devDependencies: { "@lab43/q": PIN },
+          devDependencies: { "@fuze/q": PIN },
           dependencies: { "@acme/ext": "2.0.0" },
         }),
-        "package-lock.json": lockOf({ "@lab43/q": PIN, "@acme/ext": "2.0.0" }),
+        "package-lock.json": lockOf({ "@fuze/q": PIN, "@acme/ext": "2.0.0" }),
         ".claude/q-state.json": JSON.stringify({
-          reconciledAgainst: { "@lab43/q": PIN, "@acme/ext": "2.0.0" },
+          reconciledAgainst: { "@fuze/q": PIN, "@acme/ext": "2.0.0" },
         }),
         ...installedExt(),
       }),
@@ -418,12 +418,12 @@ describe("watermarked extensions", () => {
     const staged = stageHook({
       project: agreeing({
         "package.json": JSON.stringify({
-          devDependencies: { "@lab43/q": PIN },
+          devDependencies: { "@fuze/q": PIN },
           dependencies: { "@acme/ext": "3.0.0" },
         }),
-        "package-lock.json": lockOf({ "@lab43/q": PIN, "@acme/ext": "3.0.0" }),
+        "package-lock.json": lockOf({ "@fuze/q": PIN, "@acme/ext": "3.0.0" }),
         ".claude/q-state.json": JSON.stringify({
-          reconciledAgainst: { "@lab43/q": PIN, "@acme/ext": "2.0.0" },
+          reconciledAgainst: { "@fuze/q": PIN, "@acme/ext": "2.0.0" },
         }),
         ...installedExt(),
       }),
@@ -437,7 +437,7 @@ describe("watermarked extensions", () => {
   it("is silent for a keyword-carrying dependency that ships no payload", () => {
     const staged = stageHook({
       project: agreeing({
-        "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN, "@acme/ext": "2.0.0" } }),
+        "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN, "@acme/ext": "2.0.0" } }),
         "node_modules/@acme/ext/package.json": JSON.stringify({
           version: "2.0.0",
           keywords: ["q-extension"],
@@ -450,7 +450,7 @@ describe("watermarked extensions", () => {
   it("is loud for an unwatermarked extension whose payload is a plugin alone", () => {
     const staged = stageHook({
       project: agreeing({
-        "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN, "@acme/ext": "2.0.0" } }),
+        "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN, "@acme/ext": "2.0.0" } }),
         ...installedExt("q-extension/.claude-plugin/plugin.json", '{"name":"ext"}'),
       }),
     });
@@ -460,7 +460,7 @@ describe("watermarked extensions", () => {
   it("is loud for an unwatermarked extension whose payload is guides alone", () => {
     const staged = stageHook({
       project: agreeing({
-        "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN, "@acme/ext": "2.0.0" } }),
+        "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN, "@acme/ext": "2.0.0" } }),
         ...installedExt("q-extension/guides/migrating.md", "# Migrating\n"),
       }),
     });
@@ -473,7 +473,7 @@ describe("watermarked extensions", () => {
   it("is silent for a dependency shipping a payload but no keyword", () => {
     const staged = stageHook({
       project: agreeing({
-        "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN, "@acme/ext": "2.0.0" } }),
+        "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN, "@acme/ext": "2.0.0" } }),
         "node_modules/@acme/ext/package.json": JSON.stringify({ version: "2.0.0" }),
         "node_modules/@acme/ext/q-extension/conventions/rules.md": "# Rules\n",
       }),
@@ -487,7 +487,7 @@ describe("watermarked extensions", () => {
   it("survives a payload directory it cannot read", () => {
     const staged = stageHook({
       project: agreeing({
-        "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN, "@acme/ext": "2.0.0" } }),
+        "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN, "@acme/ext": "2.0.0" } }),
         ...installedExt(),
       }),
     });
@@ -506,7 +506,7 @@ describe("watermarked extensions", () => {
   it("is silent for a keyword-carrying dependency whose payload holds no shape", () => {
     const staged = stageHook({
       project: agreeing({
-        "package.json": JSON.stringify({ devDependencies: { "@lab43/q": PIN, "@acme/ext": "2.0.0" } }),
+        "package.json": JSON.stringify({ devDependencies: { "@fuze/q": PIN, "@acme/ext": "2.0.0" } }),
         ...installedExt("q-extension/skills/thing/SKILL.md", "# Thing\n"),
       }),
     });
@@ -518,7 +518,7 @@ describe("watermarked extensions", () => {
       project: withExt({
         "node_modules/@acme/ext/package.json": null,
         ".claude/q-state.json": JSON.stringify({
-          reconciledAgainst: { "@lab43/q": "0.1.0", "@acme/ext": "2.0.0" },
+          reconciledAgainst: { "@fuze/q": "0.1.0", "@acme/ext": "2.0.0" },
         }),
       }),
     });

@@ -2,8 +2,8 @@
 
 An agentic coding workflow for Claude Code. Named for Q, the quartermaster who equips James Bond with his gadgets — q outfits your agents before they go into the field.
 
-<!-- source: @lab43/q conventions/documentation.md, Taxonomy -->
-<!-- source: @lab43/q references/run-contract.md, Validation -->
+<!-- source: @fuze/q conventions/documentation.md, Taxonomy -->
+<!-- source: @fuze/q references/run-contract.md, Validation -->
 
 Agents do their best work with good documentation and a structured workflow. q provides both:
 
@@ -39,7 +39,7 @@ Planned changes:
    - Prescribe no format when the repo has no template, and no title rule.
    - Move diff comments and their signature into the run contract, so only q's skill runs post them. PR bodies carry no signature.
 7. [x] **Make `/q:address-feedback` work without the GitHub CLI.** Without `gh`, the user pastes the reviewer's feedback, and the run hands back the updated PR title, body, and drafted replies to paste.
-8. [ ] **Publish.** Publish as @fuze/q. Change all references from @lab43/q.
+8. [x] **Publish.** Publish as @fuze/q. Change all references from @lab43/q.
 9. [ ] **Use any GitHub integration, not just `gh`:**
    - Do each GitHub operation through whatever integration the session has, such as `gh` or a GitHub MCP server.
    - Fall back to manual steps, like a compare URL, only when no integration can do it.
@@ -54,17 +54,17 @@ Staying as upstream q has them:
 
 ## What else you get
 
-<!-- source: @lab43/q references/run-contract.md, Working alongside a peer -->
-<!-- source: @lab43/q skills/drive/SKILL.md -->
-<!-- source: @lab43/q skills/parallelize/SKILL.md -->
-<!-- source: @lab43/q conventions/pull-requests.md, Body -->
-<!-- source: @lab43/q references/run-contract.md, Comments on a PR -->
-<!-- source: @lab43/q skills/implement-plan/SKILL.md -->
-<!-- source: @lab43/q references/run-contract.md, Collaboration modes -->
-<!-- source: @lab43/q conventions/extensions.md, Identity -->
-<!-- source: @lab43/q conventions/extensions.md, Pinning -->
-<!-- source: @lab43/q skills/reconcile/SKILL.md -->
-<!-- source: @lab43/q hooks/session-start.mjs -->
+<!-- source: @fuze/q references/run-contract.md, Working alongside a peer -->
+<!-- source: @fuze/q skills/drive/SKILL.md -->
+<!-- source: @fuze/q skills/parallelize/SKILL.md -->
+<!-- source: @fuze/q conventions/pull-requests.md, Body -->
+<!-- source: @fuze/q references/run-contract.md, Comments on a PR -->
+<!-- source: @fuze/q skills/implement-plan/SKILL.md -->
+<!-- source: @fuze/q references/run-contract.md, Collaboration modes -->
+<!-- source: @fuze/q conventions/extensions.md, Identity -->
+<!-- source: @fuze/q conventions/extensions.md, Pinning -->
+<!-- source: @fuze/q skills/reconcile/SKILL.md -->
+<!-- source: @fuze/q hooks/session-start.mjs -->
 
 - **Parallel sessions.** Run several tasks in one repo at once. Sessions tell each other what they're working on, and take their own git worktree when another is working the checkout. When they run the product, each gets its own ports, databases, and anything else they'd fight over, and they take turns over what can't be split.
 - **You decide, q does the work.** Agents write the code, but you still own it. Every q skill run talks decisions through with you, and goes ahead only when you agree. From there it works on its own, and stops to check with you only when the work would go beyond what you agreed.
@@ -76,9 +76,9 @@ Staying as upstream q has them:
 
 ## Getting started
 
-q requires [Claude Code](https://claude.com/claude-code) and is installed in your repo with npm. The [GitHub CLI](https://cli.github.com) (`gh`) is optional. With it installed and authenticated, q opens pull requests itself. Without it, q pushes the branch and hands you a link that opens the pull request, with its description drafted for you to paste.
+q requires [Claude Code](https://claude.com/claude-code) and is installed in your repo with npm, from Alto's Artifactory registry. The [GitHub CLI](https://cli.github.com) (`gh`) is optional. With it installed and authenticated, q opens pull requests itself. Without it, q pushes the branch and hands you a link that opens the pull request, with its description drafted for you to paste.
 
-<!-- source: @lab43/q skills/install/SKILL.md -->
+<!-- source: @fuze/q skills/install/SKILL.md -->
 
 ```sh
 # Optional: install and authenticate the GitHub CLI, so q opens PRs itself.
@@ -86,11 +86,16 @@ q requires [Claude Code](https://claude.com/claude-code) and is installed in you
 brew install gh
 gh auth login
 
+# Fetch @fuze packages from Alto's Artifactory. Skip this when the repo's
+# .npmrc already routes the @fuze scope. Installing needs Artifactory
+# credentials for alto-npm, as every @fuze package does.
+echo '@fuze:registry=https://artifactory.infra.alto.com/artifactory/api/npm/alto-npm/' >> .npmrc
+
 # Add q as a dev dependency, pinned to this exact version.
-npm install --save-dev --save-exact @lab43/q
+npm install --save-dev --save-exact @fuze/q
 
 # Load q manually the first time.
-claude --plugin-dir ./node_modules/@lab43/q/q-extension
+claude --plugin-dir ./node_modules/@fuze/q/q-extension
 
 # Within Claude, set up q.
 # This scaffolds the docs and auto-loads the skills in future sessions.
@@ -101,14 +106,14 @@ You only do this once per project. Any later checkout, yours or a teammate's, ju
 
 **Make something!** Try running `/q:implement` with an issue link or a description of the work. Or run `/q:review` to analyze existing code.
 
-<!-- source: @lab43/q skills/reconcile/SKILL.md -->
-<!-- source: @lab43/q hooks/session-start.mjs -->
+<!-- source: @fuze/q skills/reconcile/SKILL.md -->
+<!-- source: @fuze/q hooks/session-start.mjs -->
 
 ### Upgrading
 
 ```sh
 # Move the pin in package.json to the latest version of q.
-npm install --save-dev --save-exact @lab43/q@latest
+npm install --save-dev --save-exact @fuze/q@latest
 
 # Within Claude, bring your docs in line with the new version.
 /q:reconcile
@@ -120,14 +125,14 @@ Until you run `/q:reconcile`, every session reminds you to.
 
 Everything q produces lives in plain text files in your repo.
 
-<!-- source: @lab43/q skills/install/SKILL.md -->
-<!-- source: @lab43/q hooks/session-start.mjs -->
+<!-- source: @fuze/q skills/install/SKILL.md -->
+<!-- source: @fuze/q hooks/session-start.mjs -->
 
 **Every session starts knowing where the rules are.** Your conventions sit in `q-docs/conventions/`, one doc per topic, beside q's own and those of any extension you install. Your `CLAUDE.md` indexes all of them. Every session is told to check them before writing code, making design decisions, or changing docs, whether or not it invokes a q skill.
 
 **Your docs come in four kinds.** Each has its own directory under `q-docs/`:
 
-<!-- source: @lab43/q conventions/documentation.md, Taxonomy -->
+<!-- source: @fuze/q conventions/documentation.md, Taxonomy -->
 
 - **Conventions** (`q-docs/conventions/`) say how code here gets written. They start nearly empty, because conventions are earned as decisions are made, not pre-written. Sessions record each decision as a rule as it is made, with one home per fact, placed where its next reader will look. Break a convention and the code is wrong.
 - **Specs** (`q-docs/specs/`) say what a feature does. You write them on purpose, before the code or as a deliberate change to it. Break a spec and the product is wrong, unless you meant to change the promise, in which case the spec changes with it.
@@ -162,7 +167,7 @@ From there:
 
 ## Skills
 
-<!-- source: @lab43/q skills/ -->
+<!-- source: @fuze/q skills/ -->
 
 **Everyday work** — the workflow loop:
 
@@ -191,8 +196,8 @@ From there:
 
 ## Extensions
 
-<!-- source: @lab43/q conventions/extensions.md -->
-<!-- source: @lab43/q conventions/conventions.md, Three tiers of conventions -->
+<!-- source: @fuze/q conventions/extensions.md -->
+<!-- source: @fuze/q conventions/conventions.md, Three tiers of conventions -->
 
 An extension is an npm package that ships q docs, so several projects can share one set of rules. Install it like any other package, then run `/q:reconcile` to add its docs to your index. Its conventions bind your sessions alongside q's and your own. Where they conflict, your rules beat the extension's, and the extension's beat q's.
 
@@ -207,14 +212,14 @@ To publish an extension:
   - `.claude-plugin/` for a Claude Code plugin, with its skills, agents, and hooks
 - List `q-extension` in `package.json`'s `files`. Without it the package ships no rules, and nothing warns you.
 - Set `q.description` (see: Settings).
-- Pin `@lab43/q` to an exact version in `devDependencies`. It tells consumers which version of q the rules were written against.
+- Pin `@fuze/q` to an exact version in `devDependencies`. It tells consumers which version of q the rules were written against.
 
 The full rules are in [q's extension format](q-extension/conventions/extensions.md).
 
 ## Settings
 
-<!-- source: @lab43/q references/run-contract.md, Draft pull requests -->
-<!-- source: @lab43/q conventions/extensions.md, Description -->
+<!-- source: @fuze/q references/run-contract.md, Draft pull requests -->
+<!-- source: @fuze/q conventions/extensions.md, Description -->
 
 q's settings live under the `q` key of your root `package.json`. Everything else about how q behaves in your project is decided in your conventions docs.
 
@@ -241,7 +246,7 @@ q's settings live under the `q` key of your root `package.json`. Everything else
 
 ## Markers
 
-<!-- source: @lab43/q conventions/documentation.md, Markers -->
+<!-- source: @fuze/q conventions/documentation.md, Markers -->
 
 q adds cross-references to your docs to help them stay in sync. Each fact has one home, and a marker records how other text relates to it. Readers can follow a marker to the detail, and `/q:groom-docs` keeps them accurate:
 
@@ -262,11 +267,11 @@ q is developed with q. To work on it:
 1. Clone this repo and run `npm install`.
 2. Start `claude` in your checkout. It loads your working copy of q rather than a published version, and picks up skill edits immediately.
 
-<!-- source: @lab43/q conventions/extensions.md, Which rules ship -->
+<!-- source: @fuze/q conventions/extensions.md, Which rules ship -->
 
 Rules live in two places:
 
-- `q-extension/` is what the `@lab43/q` package ships: the skills, and the conventions every project using q follows.
+- `q-extension/` is what the `@fuze/q` package ships: the skills, and the conventions every project using q follows.
 - `q-docs/conventions/` holds the rules for developing q itself. They don't ship.
 
 <!-- source: .claude/skills/release/SKILL.md -->

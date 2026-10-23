@@ -35,23 +35,23 @@ Choose a level first (see: Choosing the version). Then, on `main`:
 3. Publish a GitHub release tagged `v<version>`, targeting the commit from step 2:
 
    ```sh
-   gh release create v<version> --repo Lab43/q --target "$(git rev-parse HEAD)" --generate-notes
+   gh release create v<version> --repo scriptdash/fuze-q --target "$(git rev-parse HEAD)" --generate-notes
    ```
 
    `--target` takes the full commit SHA. An abbreviated one is rejected with `Release.target_commitish is invalid`, alongside a `tag_name is not a valid tag` that points at the wrong field.
 
    Check what the target resolves to, whichever way the release is made. A release ships whatever commit it targets. `HEAD` is the bump commit only while nothing has moved it since step 2, and the web form offers `main`'s tip rather than that commit. Neither of the workflow's checks objects to a later commit on `main`, so anything merged since step 2 would go out under a version that does not account for it.
 
-Publishing the release is what starts the workflow (source: .github/workflows/release.yml). It checks that the release commit is on `main`, that the tag names the version in `package.json`, and that `npm run check` passes over the tagged tree. Then it publishes to npm with provenance.
+Publishing the release is what starts the workflow (source: .github/workflows/release.yml). It checks that the release commit is on `main`, that the tag names the version in `package.json`, and that `npm run check` passes over the tagged tree. Then it publishes to Alto's Artifactory registry, `alto-npm`.
 
 ## When a release fails
 
-Anything that fails before the publish leaves npm untouched.
+Anything that fails before the publish leaves the registry untouched.
 
 - For a transient failure — a flaky install, or a tag the checkout can't see yet — re-run the job from the Actions tab.
 - For anything else, delete the release and its tag, fix what failed, and release again.
 
-A failure inside the publish itself is the one case neither covers. npm may already hold the version, and it will reject a second attempt at it. Release the next version instead.
+A failure inside the publish itself is the one case neither covers. The registry may already hold the version, and it will reject a second attempt at it. Release the next version instead.
 
 ## Choosing the version
 
@@ -67,7 +67,7 @@ Consuming projects pick up a release by installing it and running `/q:reconcile`
 
 Two settings live outside the repository.
 
-- **npm trusted publishing**, configured on the package's settings at npmjs.com against the `Lab43/q` repository and the workflow filename `release.yml`. It is what lets the workflow publish without a stored token. Renaming the workflow file breaks publishing until that setting names the new filename. npm reports the mismatch only as a bare `401`.
+- **The `NPM_TOKEN` repository secret**, an Artifactory identity token with publish access to `alto-npm`. The workflow authenticates its publish with it. An expired or revoked token fails the publish with a `401`.
 - **A bypass for repository admin** on `main`'s ruleset, without which step 2 cannot push. `main` requires the `check` status, and a required status check governs direct pushes as well as merges. A ruleset standing beside classic branch protection lifts nothing, because the most restrictive rule wins — the classic rule has to be deleted.
 
-The push in step 2 proves the bypass. Trusted publishing is only exercised by a real release, so confirm it before a release day rather than on one.
+The push in step 2 proves the bypass. The token is only exercised by a real release, so confirm it before a release day rather than on one.

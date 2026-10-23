@@ -31,7 +31,7 @@ Bring the target up. Never stop what you didn't start: a stack already running i
 
 Exercise it the way it will really be used: load the page, call the endpoint, run the command, walk the flow.
 
-When what you exercised shows on screen, capture it: a screenshot of each state the change touched, and a recording of each flow it touched (source: @lab43/q conventions/pull-requests.md, Screenshots and recordings). Save the captures in scratch space.
+When what you exercised shows on screen, capture it: a screenshot of each state the change touched, and a recording of each flow it touched (source: @fuze/q conventions/pull-requests.md, Screenshots and recordings). Save the captures in scratch space.
 
 Write whatever harness the driving needs in scratch space — a script, a fixture, a seeded request. Leave it there. Report a harness worth keeping rather than planting it in the project.
 
@@ -57,8 +57,8 @@ The manual is a set of directions, not a log. Where its instructions failed you,
 
 Create the manual when the project has none. Name it `q-docs/guides/driving-manual.md`, unless the project's own docs layout points somewhere else.
 
-Make the change directly, following the documentation policy (see: @lab43/q conventions/documentation.md). Deliver nothing here. The change joins the calling run's change, or waits uncommitted.
+Make the change directly, following the documentation policy (see: @fuze/q conventions/documentation.md). Deliver nothing here. The change joins the calling run's change, or waits uncommitted.
 
 ## Step 4: Report
 
-Report what you exercised and what it demonstrated, claim by claim, with the path to each capture — the evidence a PR body carries (source: @lab43/q conventions/pull-requests.md, Body). Name what changed in the manual, and say whether that change is still uncommitted. Name anything you waited on, and how long it held you. Report what failed and stop there.
+Report what you exercised and what it demonstrated, claim by claim, with the path to each capture — the evidence a PR body carries (source: @fuze/q conventions/pull-requests.md, Body). Name what changed in the manual, and say whether that change is still uncommitted. Name anything you waited on, and how long it held you. Report what failed and stop there.

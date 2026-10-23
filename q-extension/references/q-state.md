@@ -14,16 +14,16 @@ The file lives at `.claude/q-state.json`, committed. JSON, one key per line, so 
 {
   "note": "Machine state written by q's skills. Never edit by hand; /q:reconcile repairs drift.",
   "reconciledAgainst": {
-    "@lab43/q": "0.3.0"
+    "@fuze/q": "0.3.0"
   }
 }
 ```
 
-`reconciledAgainst` holds one entry for `@lab43/q` and one per installed extension: the version the project was last reconciled against. q's entry has the same shape as the rest, carrying no privilege and no separate field.
+`reconciledAgainst` holds one entry for `@fuze/q` and one per installed extension: the version the project was last reconciled against. q's entry has the same shape as the rest, carrying no privilege and no separate field.
 
 ## Writer rules
 
-- `/q:install` writes a missing `@lab43/q` entry when it scaffolds, from the version installed, which has no reconciliation debt. It never touches a present entry — a stale one is reconciliation's to move.
+- `/q:install` writes a missing `@fuze/q` entry when it scaffolds, from the version installed, which has no reconciliation debt. It never touches a present entry — a stale one is reconciliation's to move.
 - `/q:reconcile` writes watermarks as reconciliation's record: it moves a package's entry after reconciling its version move, writes an arrival's first entry from the version installed, and drops an entry as part of reconciling a departure. It writes nothing before a reconciliation — watermarks certify one.
 
 An absent file means no record — create it on the first watermark write.

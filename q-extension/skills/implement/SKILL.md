@@ -17,7 +17,7 @@ The work comes from the invocation, at any fidelity — an issue number or URL, 
 ## Step 1: Understand
 
 1. Announce the item to the peers before reading it — investigating it is already work a peer should not duplicate (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Working alongside a peer). A run continued from `/q:triage` arrives with the item already announced. Release it whenever this run stops working the item, whether it turns out unavailable or the verdict is nothing to do.
-2. Read the work item at its source — its description, comments, and related items, when the source carries them — and whatever it cites: stack traces, linked discussions, named files. Read it fresh even when a caller just read it: a tracker moves for reasons no peer announces. An item no longer available to pick up goes back to the user before any further work (source: @lab43/q conventions/issue-tracking.md, Respect existing claims).
+2. Read the work item at its source — its description, comments, and related items, when the source carries them — and whatever it cites: stack traces, linked discussions, named files. Read it fresh even when a caller just read it: a tracker moves for reasons no peer announces. An item no longer available to pick up goes back to the user before any further work (source: @fuze/q conventions/issue-tracking.md, Respect existing claims).
 3. Read the conventions and specs governing the affected territory, found from the agent briefing's docs index.
 4. Explore the affected code — use an Explore subagent for breadth; read the load-bearing files yourself.
 5. Check `q-docs/plans/` (if it exists) for collisions: surface a `pending` plan in the same territory in Step 2 rather than silently working around it.
@@ -26,7 +26,7 @@ The outcome is a verdict: what the work actually is, whether the item's claims h
 
 ## Step 2: Agree
 
-Settle the run with the user, in conversational mode (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Collaboration modes). Present the verdict and a recommended route. Then ask one batch: the approach where the fix is genuinely forked, the exit when the work contradicts a spec — amend the spec with the change, or reshape the work to honor it (source: @lab43/q conventions/specs.md, Disagreement) — and, when fixing here, the review mode, always asked unless `/q:triage` handed it over (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Review modes). In this run, ship covers commit, push, and the PR; local commits nothing until the user has reviewed the diff.
+Settle the run with the user, in conversational mode (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Collaboration modes). Present the verdict and a recommended route. Then ask one batch: the approach where the fix is genuinely forked, the exit when the work contradicts a spec — amend the spec with the change, or reshape the work to honor it (source: @fuze/q conventions/specs.md, Disagreement) — and, when fixing here, the review mode, always asked unless `/q:triage` handed it over (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Review modes). In this run, ship covers commit, push, and the PR; local commits nothing until the user has reviewed the diff.
 
 Answers settle decisions. They are not the agreement. Close the conversation by summarizing the agreed scope and asking for the go-ahead. That go-ahead, not the last answer, is what makes the rest of the run autonomous.
 
@@ -46,7 +46,7 @@ git fetch origin && git checkout -b <work-slug> origin/<default-branch>
 
 ## Step 4: Build
 
-1. When the work fixes a bug a person sees on screen, drive the bug through `/q:drive` before changing anything, naming the steps that show it as what to exercise. That capture is the PR's "before" (source: @lab43/q conventions/pull-requests.md, Screenshots and recordings).
+1. When the work fixes a bug a person sees on screen, drive the bug through `/q:drive` before changing anything, naming the steps that show it as what to exercise. That capture is the PR's "before" (source: @fuze/q conventions/pull-requests.md, Screenshots and recordings).
 2. Implement the agreed fix, following the governing conventions and matching surrounding code.
 3. Verify: run the project's checks — lint, typecheck, and the tests covering what changed, as the project's briefing, conventions, or scripts name them (parallel background subagents are fine). When the change produced a newly drivable surface — an endpoint, a screen — drive it through `/q:drive`, naming that surface as what to exercise. Drive a bug captured in item 1 again through the same steps.
 4. In ship mode, commit — before review, so the review history is inspectable in git.
@@ -60,5 +60,5 @@ Validate the diff (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Valida
 ## Step 6: Open the PR
 
 1. **The local gate**: run it over the session's uncommitted work (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, The local gate).
-2. **Open the PR**: `git push -u origin <work-slug>`, then open it (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Opening a PR) with its body per the PR-authoring rules (see: @lab43/q conventions/pull-requests.md), and post the diff comments (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Comments on a PR).
-3. Close the session by reporting the PR URL, any caveats, any amendment raised instead of applied, and any follow-up work — filed in the tracker on the user's agreement (source: @lab43/q conventions/issue-tracking.md, Ask before filing).
+2. **Open the PR**: `git push -u origin <work-slug>`, then open it (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Opening a PR) with its body per the PR-authoring rules (see: @fuze/q conventions/pull-requests.md), and post the diff comments (see: ${CLAUDE_PLUGIN_ROOT}/references/run-contract.md, Comments on a PR).
+3. Close the session by reporting the PR URL, any caveats, any amendment raised instead of applied, and any follow-up work — filed in the tracker on the user's agreement (source: @fuze/q conventions/issue-tracking.md, Ask before filing).
